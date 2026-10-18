@@ -1,0 +1,3 @@
+module TopsideCore {
+    header "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/TopsideCore.build/include/TopsideCore-Swift.h"
+}

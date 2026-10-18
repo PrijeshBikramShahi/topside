@@ -1,0 +1,3 @@
+nyvi-plan-files/
+*.md
+!README.md

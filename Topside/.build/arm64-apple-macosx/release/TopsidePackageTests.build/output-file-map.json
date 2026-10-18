@@ -1,0 +1,13 @@
+{
+  "": {
+    "dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/TopsidePackageTests.build/TopsidePackageTests.d",
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/TopsidePackageTests.build/TopsidePackageTests.o",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/TopsidePackageTests.build/primary.swiftdeps"
+  },
+  "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/TopsidePackageTests.derived/runner.swift": {
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/TopsidePackageTests.build/runner.swift.o",
+    "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/TopsidePackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/TopsidePackageTests.build/runner.swiftdeps",
+    "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/TopsidePackageTests.build/runner.dia"
+  }
+}

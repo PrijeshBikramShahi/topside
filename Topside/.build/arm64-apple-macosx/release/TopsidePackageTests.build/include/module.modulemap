@@ -1,0 +1,3 @@
+module TopsidePackageTests {
+    header "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/TopsidePackageTests.build/include/TopsidePackageTests-Swift.h"
+}

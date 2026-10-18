@@ -1,0 +1,110 @@
+{
+  "": {
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/primary.swiftdeps"
+  },
+  "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/AppDelegate.swift": {
+    "dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/AppDelegate.d",
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/AppDelegate.swift.o",
+    "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/AppDelegate~partial.swiftmodule",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/AppDelegate.swiftdeps",
+    "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/AppDelegate.dia"
+  },
+  "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/ArtworkLoader.swift": {
+    "dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/ArtworkLoader.d",
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/ArtworkLoader.swift.o",
+    "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/ArtworkLoader~partial.swiftmodule",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/ArtworkLoader.swiftdeps",
+    "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/ArtworkLoader.dia"
+  },
+  "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/BatteryService.swift": {
+    "dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/BatteryService.d",
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/BatteryService.swift.o",
+    "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/BatteryService~partial.swiftmodule",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/BatteryService.swiftdeps",
+    "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/BatteryService.dia"
+  },
+  "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/ClockService.swift": {
+    "dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/ClockService.d",
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/ClockService.swift.o",
+    "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/ClockService~partial.swiftmodule",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/ClockService.swiftdeps",
+    "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/ClockService.dia"
+  },
+  "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/DisplayContext.swift": {
+    "dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/DisplayContext.d",
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/DisplayContext.swift.o",
+    "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/DisplayContext~partial.swiftmodule",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/DisplayContext.swiftdeps",
+    "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/DisplayContext.dia"
+  },
+  "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/FullscreenMonitor.swift": {
+    "dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/FullscreenMonitor.d",
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/FullscreenMonitor.swift.o",
+    "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/FullscreenMonitor~partial.swiftmodule",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/FullscreenMonitor.swiftdeps",
+    "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/FullscreenMonitor.dia"
+  },
+  "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/IslandController.swift": {
+    "dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandController.d",
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandController.swift.o",
+    "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandController~partial.swiftmodule",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandController.swiftdeps",
+    "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandController.dia"
+  },
+  "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/IslandHost.swift": {
+    "dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandHost.d",
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandHost.swift.o",
+    "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandHost~partial.swiftmodule",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandHost.swiftdeps",
+    "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandHost.dia"
+  },
+  "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/IslandView.swift": {
+    "dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandView.d",
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandView.swift.o",
+    "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandView~partial.swiftmodule",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandView.swiftdeps",
+    "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandView.dia"
+  },
+  "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/Log.swift": {
+    "dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/Log.d",
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/Log.swift.o",
+    "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/Log~partial.swiftmodule",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/Log.swiftdeps",
+    "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/Log.dia"
+  },
+  "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/Preferences.swift": {
+    "dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/Preferences.d",
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/Preferences.swift.o",
+    "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/Preferences~partial.swiftmodule",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/Preferences.swiftdeps",
+    "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/Preferences.dia"
+  },
+  "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/SettingsWindow.swift": {
+    "dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SettingsWindow.d",
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SettingsWindow.swift.o",
+    "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SettingsWindow~partial.swiftmodule",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SettingsWindow.swiftdeps",
+    "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SettingsWindow.dia"
+  },
+  "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/SpotifyBridge.swift": {
+    "dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SpotifyBridge.d",
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SpotifyBridge.swift.o",
+    "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SpotifyBridge~partial.swiftmodule",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SpotifyBridge.swiftdeps",
+    "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SpotifyBridge.dia"
+  },
+  "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/SpotifyService.swift": {
+    "dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SpotifyService.d",
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SpotifyService.swift.o",
+    "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SpotifyService~partial.swiftmodule",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SpotifyService.swiftdeps",
+    "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SpotifyService.dia"
+  },
+  "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/StatusItemController.swift": {
+    "dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/StatusItemController.d",
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/StatusItemController.swift.o",
+    "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/StatusItemController~partial.swiftmodule",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/StatusItemController.swiftdeps",
+    "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/StatusItemController.dia"
+  }
+}

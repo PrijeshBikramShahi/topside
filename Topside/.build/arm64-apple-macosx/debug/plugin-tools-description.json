@@ -1,0 +1,1263 @@
+{
+  "builtTestProducts" : [
+    {
+      "binaryPath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsidePackageTests.xctest/Contents/MacOS/TopsidePackageTests",
+      "packagePath" : "/Users/prizesh/code/topside_claude/Topside",
+      "productName" : "TopsidePackageTests"
+    }
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.Topside-arm64-apple-macosx-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/sources",
+      "importPath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/AppDelegate.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/ArtworkLoader.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/BatteryService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/ClockService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/DisplayContext.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/FullscreenMonitor.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/IslandController.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/IslandHost.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/IslandView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/Log.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/Preferences.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/SettingsWindow.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/SpotifyBridge.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/SpotifyService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/StatusItemController.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Modules/TopsideCore.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/sources"
+        }
+      ],
+      "isLibrary" : false,
+      "moduleName" : "Topside",
+      "moduleOutputPath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Modules/Topside.swiftmodule",
+      "objects" : [
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/AppDelegate.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/ArtworkLoader.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/BatteryService.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/ClockService.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/DisplayContext.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/FullscreenMonitor.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandController.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandHost.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandView.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/Log.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/Preferences.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SettingsWindow.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SpotifyBridge.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SpotifyService.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/StatusItemController.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx13.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-Xfrontend",
+        "-entry-point-function-name",
+        "-Xfrontend",
+        "Topside_main",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "topside"
+      ],
+      "outputFileMapPath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/AppDelegate.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/ArtworkLoader.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/BatteryService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/ClockService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/DisplayContext.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/FullscreenMonitor.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandController.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandHost.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/Log.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/Preferences.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SettingsWindow.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SpotifyBridge.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SpotifyService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/StatusItemController.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Modules/Topside.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/AppDelegate.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/ArtworkLoader.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/BatteryService.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/ClockService.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/DisplayContext.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/FullscreenMonitor.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/IslandController.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/IslandHost.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/IslandView.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/Log.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/Preferences.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/SettingsWindow.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/SpotifyBridge.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/SpotifyService.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/StatusItemController.swift"
+      ],
+      "tempsPath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.TopsideCore-arm64-apple-macosx-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/sources",
+      "importPath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/Battery.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/ClockFormat.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/InteractionReducer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/IslandLayout.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/SpotifyState.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/Timing.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "TopsideCore",
+      "moduleOutputPath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Modules/TopsideCore.swiftmodule",
+      "objects" : [
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/Battery.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/ClockFormat.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/InteractionReducer.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/IslandLayout.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/SpotifyState.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/Timing.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx13.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/include/TopsideCore-Swift.h",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "topside"
+      ],
+      "outputFileMapPath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/Battery.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/ClockFormat.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/InteractionReducer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/IslandLayout.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/SpotifyState.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/Timing.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Modules/TopsideCore.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/Battery.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/ClockFormat.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/InteractionReducer.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/IslandLayout.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/SpotifyState.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/Timing.swift"
+      ],
+      "tempsPath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.TopsideCoreTests-arm64-apple-macosx-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/sources",
+      "importPath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/BatteryMapperTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/ClockFormatTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/InteractionReducerTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/IslandLayoutTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/SpotifyTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Modules/TopsideCore.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "TopsideCoreTests",
+      "moduleOutputPath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Modules/TopsideCoreTests.swiftmodule",
+      "objects" : [
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/BatteryMapperTests.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/ClockFormatTests.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/InteractionReducerTests.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/IslandLayoutTests.swift.o",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/SpotifyTests.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "topside"
+      ],
+      "outputFileMapPath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/BatteryMapperTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/ClockFormatTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/InteractionReducerTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/IslandLayoutTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/SpotifyTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Modules/TopsideCoreTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/BatteryMapperTests.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/ClockFormatTests.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/InteractionReducerTests.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/IslandLayoutTests.swift",
+        "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/SpotifyTests.swift"
+      ],
+      "tempsPath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.TopsidePackageTests-arm64-apple-macosx-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsidePackageTests.build/sources",
+      "importPath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsidePackageTests.derived/runner.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Modules/TopsideCoreTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsidePackageTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "TopsidePackageTests",
+      "moduleOutputPath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Modules/TopsidePackageTests.swiftmodule",
+      "objects" : [
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsidePackageTests.build/runner.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx13.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsidePackageTests.build/include/TopsidePackageTests-Swift.h",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "topside"
+      ],
+      "outputFileMapPath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsidePackageTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsidePackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Modules/TopsidePackageTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsidePackageTests.derived/runner.swift"
+      ],
+      "tempsPath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsidePackageTests.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "Topside" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "Topside",
+      "-package-name",
+      "topside",
+      "-c",
+      "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/AppDelegate.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/ArtworkLoader.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/BatteryService.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/ClockService.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/DisplayContext.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/FullscreenMonitor.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/IslandController.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/IslandHost.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/IslandView.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/Log.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/Preferences.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/SettingsWindow.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/SpotifyBridge.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/SpotifyService.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/StatusItemController.swift",
+      "-I",
+      "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-Xfrontend",
+      "-entry-point-function-name",
+      "-Xfrontend",
+      "Topside_main",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "topside",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "TopsideCore" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "TopsideCore",
+      "-package-name",
+      "topside",
+      "-c",
+      "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/Battery.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/ClockFormat.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/InteractionReducer.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/IslandLayout.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/SpotifyState.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/Timing.swift",
+      "-I",
+      "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/include/TopsideCore-Swift.h",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "topside",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "TopsideCoreTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "TopsideCoreTests",
+      "-package-name",
+      "topside",
+      "-c",
+      "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/BatteryMapperTests.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/ClockFormatTests.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/InteractionReducerTests.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/IslandLayoutTests.swift",
+      "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/SpotifyTests.swift",
+      "-I",
+      "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "topside",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "TopsidePackageTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "TopsidePackageTests",
+      "-package-name",
+      "topside",
+      "-c",
+      "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsidePackageTests.derived/runner.swift",
+      "-I",
+      "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsidePackageTests.build/include/TopsidePackageTests-Swift.h",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "topside",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "Topside" : [
+      "TopsideCore"
+    ],
+    "TopsideCore" : [
+
+    ],
+    "TopsideCoreTests" : [
+      "TopsideCore"
+    ],
+    "TopsidePackageTests" : [
+      "TopsideCoreTests",
+      "TopsideCore"
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+    "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsidePackageTests.derived/runner.swift" : {
+      "inputs" : [
+
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsidePackageTests.derived/runner.swift"
+        }
+      ]
+    }
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside-entitlement.plist" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<entitlement-plist>"
+        },
+        {
+          "kind" : "virtual",
+          "name" : "<com.apple.security.get-task-allow>"
+        }
+      ],
+      "outputFilePath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside-entitlement.plist"
+    },
+    "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/AppDelegate.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/ArtworkLoader.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/BatteryService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/ClockService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/DisplayContext.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/FullscreenMonitor.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/IslandController.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/IslandHost.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/IslandView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/Log.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/Preferences.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/SettingsWindow.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/SpotifyBridge.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/SpotifyService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/StatusItemController.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/sources"
+    },
+    "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/AppDelegate.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/ArtworkLoader.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/BatteryService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/ClockService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/DisplayContext.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/FullscreenMonitor.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandController.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandHost.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/IslandView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/Log.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/Preferences.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SettingsWindow.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SpotifyBridge.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/SpotifyService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.build/StatusItemController.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/Battery.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/ClockFormat.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/InteractionReducer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/IslandLayout.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/SpotifyState.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/Timing.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/Topside.product/Objects.LinkFileList"
+    },
+    "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/Battery.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/ClockFormat.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/InteractionReducer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/IslandLayout.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/SpotifyState.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Sources/TopsideCore/Timing.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/sources"
+    },
+    "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/BatteryMapperTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/ClockFormatTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/InteractionReducerTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/IslandLayoutTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/SpotifyTests.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/sources"
+    },
+    "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsidePackageTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsidePackageTests.derived/runner.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsidePackageTests.build/sources"
+    },
+    "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsidePackageTests.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/Battery.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/ClockFormat.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/InteractionReducer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/IslandLayout.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/SpotifyState.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCore.build/Timing.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/BatteryMapperTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/ClockFormatTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/InteractionReducerTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/IslandLayoutTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/SpotifyTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsidePackageTests.build/runner.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsidePackageTests.product/Objects.LinkFileList"
+    },
+    "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+    }
+  }
+}
