@@ -110,6 +110,29 @@ final class SpotifyMapperTests: XCTestCase {
     }
 }
 
+final class SpotifyStateRetentionTests: XCTestCase {
+    private let track = TrackInfo(id: "1", title: "Song", artist: "Artist", artworkURL: URL(string: "https://i.scdn.co/a"))
+
+    func testTemporaryErrorRetainsLastGoodTrackAndMarksItStale() {
+        var retention = SpotifyStateRetention()
+        _ = retention.accept(SpotifySnapshot(.playing, track: track))
+        let snapshot = retention.accept(SpotifySnapshot(.error))
+        XCTAssertEqual(snapshot.track, track)
+        let display = SpotifyMapper.map(snapshot)
+        XCTAssertTrue(display.detail.contains("Playback status unavailable"))
+        XCTAssertEqual(display.subtitle, "Last known track")
+        XCTAssertTrue(display.showsArtwork)
+        XCTAssertTrue(display.controls.isEmpty)
+    }
+
+    func testDefinitiveLifecycleStateClearsOldTrack() {
+        var retention = SpotifyStateRetention()
+        _ = retention.accept(SpotifySnapshot(.playing, track: track))
+        _ = retention.accept(SpotifySnapshot(.closed))
+        XCTAssertNil(retention.accept(SpotifySnapshot(.error)).track)
+    }
+}
+
 final class BoundedCacheTests: XCTestCase {
     func testEvictsLeastRecentlyUsed() {
         var c = BoundedCache<String, Int>(capacity: 2)

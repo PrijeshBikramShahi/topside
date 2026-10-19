@@ -22,6 +22,31 @@ public struct SpotifySnapshot: Equatable, Sendable {
     }
 }
 
+/// Keeps the most recent trustworthy track available through a temporary read
+/// failure. Definitive lifecycle states clear it so an old session is never
+/// presented as current.
+public struct SpotifyStateRetention: Sendable {
+    private var lastTrack: TrackInfo?
+
+    public init() {}
+
+    public mutating func accept(_ snapshot: SpotifySnapshot) -> SpotifySnapshot {
+        switch snapshot.availability {
+        case .playing, .paused:
+            if let track = snapshot.track { lastTrack = track }
+            return snapshot
+        case .error:
+            guard snapshot.track == nil, let lastTrack else { return snapshot }
+            return SpotifySnapshot(.error, track: lastTrack)
+        case .closed, .notInstalled, .idle:
+            lastTrack = nil
+            return snapshot
+        case .needsPermission, .permissionDenied:
+            return snapshot
+        }
+    }
+}
+
 public enum SpotifyControl: Equatable, Hashable, Sendable {
     case previous, playPause, next, open, connect, openPrivacySettings
 
@@ -104,6 +129,11 @@ public enum SpotifyMapper {
         case .notInstalled:
             return make("Spotify isn't installed", icon: .unavailable, compact: nil, controls: [])
         case .error:
+            if !line.isEmpty {
+                return make("Playback status unavailable · \(line)", subtitle: "Last known track",
+                            a11y: "Spotify status unavailable. Last known track: \(line)", icon: .warning,
+                            compact: nil, controls: [], artwork: true, paused: true, url: art)
+            }
             return make("Spotify isn't responding", icon: .warning, compact: nil, controls: [])
         }
     }

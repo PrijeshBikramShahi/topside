@@ -16,6 +16,16 @@ final class IslandModel: ObservableObject {
     @Published var detailSubtext = ""
     /// Brief failure message for a Spotify command; also flips the compact icon to a warning.
     @Published var spotifyNotice: String?
+    /// Shared short-lived activity text (power, media failure, later audio).
+    @Published var transientText: String?
+    @Published var adDateText = ""
+    @Published var bsDateText = ""
+    @Published var combinedDateText = ""
+    @Published var keyboardFocusRect: CGRect?
+    @Published var hoveredTarget: HitTarget = .outside
+    var activateSpotifyControl: ((SpotifyControl) -> Void)?
+    var activateDateCopy: ((DateCopyControl) -> Void)?
+    var activateRegionAction: ((Region) -> Void)?
 }
 
 struct BottomRoundedShape: Shape {
@@ -52,15 +62,44 @@ struct BatteryGlyph: View {
                     RoundedRectangle(cornerRadius: 1.5).fill(fillColor)
                         .frame(width: max(2, 16 * display.fillFraction), height: 6)
                         .frame(width: 16, height: 6, alignment: .leading)
+                        .animation(.spring(response: 0.28, dampingFraction: 0.9), value: display.fillFraction)
                 }
                 if display.status == .charging {
                     Image(systemName: "bolt.fill").font(.system(size: 7, weight: .bold)).foregroundColor(.black.opacity(0.85))
+                        .transition(.scale(scale: 0.7).combined(with: .opacity))
                 } else if display.status == .pluggedNotCharging {
                     Image(systemName: "powerplug.fill").font(.system(size: 7, weight: .bold)).foregroundColor(.black.opacity(0.85))
+                        .transition(.scale(scale: 0.7).combined(with: .opacity))
                 }
             }
             RoundedRectangle(cornerRadius: 1).fill(Color.white.opacity(0.55)).frame(width: 2, height: 4)
         }
+        .animation(.easeOut(duration: 0.16), value: display.status)
+    }
+}
+
+private struct IslandRevealModifier: ViewModifier {
+    let opacity: Double
+    let y: CGFloat
+    let scale: CGFloat
+
+    func body(content: Content) -> some View {
+        content.opacity(opacity).offset(y: y).scaleEffect(scale, anchor: .top)
+    }
+}
+
+private extension AnyTransition {
+    static var islandReveal: AnyTransition {
+        .asymmetric(
+            insertion: .modifier(
+                active: IslandRevealModifier(opacity: 0, y: -5, scale: 0.985),
+                identity: IslandRevealModifier(opacity: 1, y: 0, scale: 1)
+            ),
+            removal: .modifier(
+                active: IslandRevealModifier(opacity: 0, y: -3, scale: 0.992),
+                identity: IslandRevealModifier(opacity: 1, y: 0, scale: 1)
+            )
+        )
     }
 }
 
@@ -81,6 +120,7 @@ struct IslandView: View {
                 .frame(width: g.clockRect.width, height: g.clockRect.height, alignment: .leading)
                 .offset(x: g.clockRect.minX, y: g.clockRect.minY)
                 .accessibilityLabel("Time \(model.clockText)")
+                .contentTransition(.numericText())
 
             if !model.battery.isHidden {
                 HStack(spacing: 6) {
@@ -98,42 +138,76 @@ struct IslandView: View {
             compactSlot(g)
 
             if g.detailRect.height > 0 {
-                Text(model.detailText)
-                    .font(.system(size: 12))
-                    .foregroundColor(Color.white.opacity(0.85))
-                    .lineLimit(1)
-                    .frame(width: max(0, g.size.width - pad * 2), height: 20, alignment: .leading)
-                    .offset(x: pad, y: g.bandHeight + 5)
-                    .transition(.opacity)
-                if !model.detailSubtext.isEmpty {
-                    Text(model.detailSubtext)
-                        .font(.system(size: 11))
-                        .foregroundColor(Color.white.opacity(0.55))
+                ZStack(alignment: .topLeading) {
+                    Text(model.detailText)
+                        .font(.system(size: 12))
+                        .foregroundColor(Color.white.opacity(0.85))
                         .lineLimit(1)
-                        .frame(width: max(0, g.size.width - pad * 2), height: 16, alignment: .leading)
-                        .offset(x: pad, y: g.bandHeight + 25)
-                        .transition(.opacity)
-                }
-                ForEach(Array(g.controls.enumerated()), id: \.offset) { item in
-                    controlButton(item.element.control, compact: g.controls.count > 1)
-                        .frame(width: item.element.rect.width, height: item.element.rect.height)
-                        .offset(x: item.element.rect.minX, y: item.element.rect.minY)
-                        .transition(.opacity)
-                }
-                if g.actionRect.height > 0 {
-                    Text(model.actionTitle)
-                        .font(.system(size: 12, weight: .medium))
+                        .frame(width: max(0, g.size.width - pad * 2), height: 20, alignment: .leading)
+                        .offset(x: pad, y: g.bandHeight + 5)
+                        .contentTransition(.opacity)
+                    if !model.detailSubtext.isEmpty {
+                        Text(model.detailSubtext)
+                            .font(.system(size: 11))
+                            .foregroundColor(Color.white.opacity(0.55))
+                            .lineLimit(1)
+                            .frame(width: max(0, g.size.width - pad * 2), height: 16, alignment: .leading)
+                            .offset(x: pad, y: g.bandHeight + 25)
+                            .transition(.opacity.combined(with: .move(edge: .top)))
+                    }
+                    ForEach(Array(g.controls.enumerated()), id: \.offset) { item in
+                        controlButton(item.element.control, compact: g.controls.count > 1)
+                            .frame(width: item.element.rect.width, height: item.element.rect.height)
+                            .offset(x: item.element.rect.minX, y: item.element.rect.minY)
+                    }
+                    ForEach(Array(g.dateControls.enumerated()), id: \.offset) { item in
+                        let target = HitTarget.dateCopy(item.element.control)
+                        Button(item.element.control.title) {
+                            model.activateDateCopy?(item.element.control)
+                        }
+                        .buttonStyle(.plain)
+                        .font(.system(size: 10, weight: .medium))
                         .foregroundColor(.white)
-                        .frame(width: g.actionRect.width, height: g.actionRect.height)
-                        .background(RoundedRectangle(cornerRadius: 8).fill(Color.white.opacity(0.12)))
-                        .offset(x: g.actionRect.minX, y: g.actionRect.minY)
-                        .transition(.opacity)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.8)
+                        .frame(width: item.element.rect.width, height: item.element.rect.height)
+                        .background(buttonSurface(for: target))
+                        .scaleEffect(model.hoveredTarget == target ? 1.025 : 1)
+                        .offset(x: item.element.rect.minX, y: item.element.rect.minY)
+                        .animation(.easeOut(duration: 0.12), value: model.hoveredTarget == target)
+                        .accessibilityLabel(item.element.control.title)
+                    }
+                    if g.actionRect.height > 0, let region = model.mode.region {
+                        let target = HitTarget.action(region)
+                        Button(model.actionTitle) {
+                            model.activateRegionAction?(region)
+                        }
+                            .buttonStyle(.plain)
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundColor(.white)
+                            .frame(width: g.actionRect.width, height: g.actionRect.height)
+                            .background(buttonSurface(for: target))
+                            .scaleEffect(model.hoveredTarget == target ? 1.018 : 1)
+                            .offset(x: g.actionRect.minX, y: g.actionRect.minY)
+                            .animation(.easeOut(duration: 0.12), value: model.hoveredTarget == target)
+                    }
                 }
+                .frame(width: g.size.width, height: g.size.height, alignment: .topLeading)
+                .transition(.islandReveal)
+            }
+            if let focus = model.keyboardFocusRect {
+                RoundedRectangle(cornerRadius: 9)
+                    .stroke(Color.accentColor, lineWidth: 2)
+                    .frame(width: focus.width, height: focus.height)
+                    .offset(x: focus.minX, y: focus.minY)
+                    .allowsHitTesting(false)
+                    .accessibilityHidden(true)
+                    .animation(.spring(response: 0.24, dampingFraction: 0.88), value: focus)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        // Reduce Motion: no animation at all (instant); otherwise a short fade for panel content.
-        .animation(model.reduceMotion ? nil : .easeOut(duration: 0.15), value: model.mode)
+        .animation(model.reduceMotion ? nil : .spring(response: 0.28, dampingFraction: 0.9), value: model.mode)
+        .animation(model.reduceMotion ? nil : .easeOut(duration: 0.16), value: model.detailText)
     }
 
     // MARK: Spotify
@@ -146,14 +220,36 @@ struct IslandView: View {
                 .frame(width: g.artworkRect.width, height: g.artworkRect.height)
                 .offset(x: g.artworkRect.minX, y: g.artworkRect.minY)
         }
-        Image(systemName: failed ? "exclamationmark.triangle.fill" : symbol(for: d.compactIcon))
-            .font(.system(size: 11, weight: .semibold))
-            .foregroundColor(failed ? .yellow : .white)
-            .frame(width: g.playRect.width, height: g.playRect.height)
-            .background(Circle().fill(Color.white.opacity(d.compactControl == nil ? 0 : 0.14)))
-            .opacity(d.compactControl == nil && !failed ? 0.45 : 1)
+        if let control = d.compactControl {
+            Button { model.activateSpotifyControl?(control) } label: {
+                compactIcon(d, failed: failed)
+            }
+            .buttonStyle(.plain)
             .offset(x: g.playRect.minX, y: g.playRect.minY)
-            .accessibilityLabel(d.compactControl?.buttonTitle ?? d.detail)
+            .accessibilityLabel(control.buttonTitle)
+        } else {
+            compactIcon(d, failed: failed)
+                .offset(x: g.playRect.minX, y: g.playRect.minY)
+                .accessibilityLabel(d.detail)
+        }
+    }
+
+    private func compactIcon(_ d: SpotifyDisplay, failed: Bool) -> some View {
+        let icon = failed ? "exclamationmark.triangle.fill" : symbol(for: d.compactIcon)
+        let hovered = model.hoveredTarget == .compact
+        return ZStack {
+            Image(systemName: icon)
+                .font(.system(size: 11, weight: .semibold))
+                .foregroundColor(failed ? .yellow : .white)
+                .id(icon)
+                .transition(.scale(scale: 0.72).combined(with: .opacity))
+        }
+            .frame(width: model.geometry.playRect.width, height: model.geometry.playRect.height)
+            .background(Circle().fill(Color.white.opacity(d.compactControl == nil ? 0 : hovered ? 0.24 : 0.14)))
+            .opacity(d.compactControl == nil && !failed ? 0.45 : 1)
+            .scaleEffect(hovered ? 1.08 : 1)
+            .animation(model.reduceMotion ? nil : .easeOut(duration: 0.14), value: hovered)
+            .animation(model.reduceMotion ? nil : .easeOut(duration: 0.16), value: icon)
     }
 
     private func artworkView(_ d: SpotifyDisplay) -> some View {
@@ -167,6 +263,9 @@ struct IslandView: View {
         }
         .clipShape(RoundedRectangle(cornerRadius: 5))
         .opacity(d.isPaused ? 0.55 : 1)
+        .scaleEffect(model.hoveredTarget == .region(.spotify) ? 1.035 : 1)
+        .animation(model.reduceMotion ? nil : .easeOut(duration: 0.16), value: model.hoveredTarget == .region(.spotify))
+        .animation(model.reduceMotion ? nil : .easeOut(duration: 0.2), value: model.artwork != nil)
     }
 
     private func symbol(for icon: CompactIcon) -> String {
@@ -180,19 +279,34 @@ struct IslandView: View {
     }
 
     private func controlButton(_ control: SpotifyControl, compact: Bool) -> some View {
-        Group {
-            switch control {
-            case .previous: Image(systemName: "backward.fill")
-            case .next: Image(systemName: "forward.fill")
-            case .playPause: Image(systemName: model.spotify.availability == .playing ? "pause.fill" : "play.fill")
-            case .open where compact: Image(systemName: "arrow.up.right.square")
-            case .open, .connect, .openPrivacySettings: Text(control.buttonTitle).lineLimit(1).minimumScaleFactor(0.8)
+        let target = HitTarget.control(control)
+        return Button { model.activateSpotifyControl?(control) } label: {
+            Group {
+                switch control {
+                case .previous: Image(systemName: "backward.fill")
+                case .next: Image(systemName: "forward.fill")
+                case .playPause: Image(systemName: model.spotify.availability == .playing ? "pause.fill" : "play.fill")
+                case .open where compact: Image(systemName: "arrow.up.right.square")
+                case .open, .connect, .openPrivacySettings: Text(control.buttonTitle).lineLimit(1).minimumScaleFactor(0.8)
+                }
             }
         }
+        .buttonStyle(.plain)
         .font(.system(size: 12, weight: .medium))
         .foregroundColor(.white)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(RoundedRectangle(cornerRadius: 8).fill(Color.white.opacity(0.12)))
+        .background(buttonSurface(for: target))
+        .scaleEffect(model.hoveredTarget == target ? 1.025 : 1)
+        .animation(model.reduceMotion ? nil : .easeOut(duration: 0.12), value: model.hoveredTarget == target)
         .accessibilityLabel(control.buttonTitle)
+    }
+
+    private func buttonSurface(for target: HitTarget) -> some View {
+        RoundedRectangle(cornerRadius: 8)
+            .fill(Color.white.opacity(model.hoveredTarget == target ? 0.2 : 0.12))
+            .overlay {
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color.white.opacity(model.hoveredTarget == target ? 0.13 : 0), lineWidth: 0.75)
+            }
     }
 }

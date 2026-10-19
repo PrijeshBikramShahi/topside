@@ -1,14 +1,14 @@
-# Topside: Phase 1 (island shell, clock, battery, interaction) + Phase 2 (Spotify)
+# Topside: Dynamic Island prototype
 
-**Status:** Phase 1 compiled on the author's Mac (release build); it has not been run or tested. **Phase 2 is written but NOT compiled
-or run**: no Swift toolchain was available where it was authored, so expect a few compile errors; send them back verbatim.
-Unit tests (64) have never been executed.
+**Status (19 October 2026):** debug/release and complete Swift-concurrency builds pass on macOS 26.5.2 with Swift 6.3.3.
+All 84 core tests pass. Collapsed/date/battery rendering, Escape dismissal, readable expanded width and accessible date
+buttons were verified in the built app; physical display changes, Spotify transport and hardware transitions still require manual testing.
 
 ## Build and run
 ```bash
-swift test                                        # TopsideCore unit tests (64)
-security find-identity -v -p codesigning          # copy an "Apple Development: ..." identity if you have one
-bash build_app.sh "Apple Development: Your Name (TEAMID)"
+swift test                                        # TopsideCore unit tests (84)
+security find-identity -v -p codesigning          # check available signing identities
+bash build_app.sh                                 # Developer ID; Apple Development for local use; otherwise ad-hoc
 open build/Topside.app                            # log: ~/Library/Logs/Topside.log
 ```
 Bundle ID `com.prizesh.topside`. Quit/Settings: the capsule icon in the menu bar. Opening the app again while it
@@ -21,16 +21,20 @@ runs opens Settings.
 - **Slice 2, clock + battery:** minute-aligned clock (wake/timezone/locale resync, 12/24h); event-driven battery
   (IOKit) with discharging, charging, charged, plugged-not-charging, low/critical, Low Power Mode, unknown, no-battery.
 - **Slice 3, interaction:** pure reducer (hover dwell 300ms, leave grace 400ms, token-cancelled timers), hover peek
-  (date / battery detail), click to pin, pinned action button (opens Date & Time / Battery settings), outside-click
-  dismissal via global mouse monitor, Reduce Motion, suppression on lock/sleep/fullscreen/user-hide.
-- Right side of the pill is an empty reserved slot for Spotify (Phase 2). No fake controls.
+  (date / battery detail), click to pin, outside-click dismissal, and full pinned-panel keyboard navigation with
+  Tab/Shift-Tab, arrows, Space, Return and Escape. Hover never takes keyboard focus.
+- **Slice 4, dates and activities:** bounded AD→BS conversion through BS 2099; separate
+  Copy AD / Copy BS / Copy both actions; charging/power-source transitions; passive default-audio-output changes.
+- **Slice 5, Spotify:** lifecycle/permission states, bounded artwork, compact control and pinned transport controls.
+- **Slice 6, system integration:** launch-at-login through `SMAppService.mainApp` and an adjustable global show/hide
+  shortcut (Off, ⌥Space, ⌃⌥Space, or ⇧⌘Space) implemented with the permission-free Carbon hot-key API.
 
-## Please test (nothing below has been run)
+## Manual test checklist
 1. Builds and launches; capsule icon appears; no Dock icon.
 2. Pill sits top-center, flush with the screen top. Height/offset sliders move it live.
 3. Typing in another app while the pill is hovered/pinned is never interrupted (no focus theft).
-4. Hover clock ~0.3s: date appears. Hover battery: battery detail. Fast pass across the pill does nothing.
-5. Click clock: pinned. Click it again, click elsewhere, or press the action button: collapses. Action opens the pane.
+4. Hover clock ~0.3s: full AD and romanized BS dates appear. Fast pass across the pill does nothing.
+5. Click clock: pinned. Verify Copy AD, Copy BS, Copy both, Escape, outside click and clicking clock again.
 6. Battery: unplug/plug charger; percent shown while charging or <=20%; "plugged in, not charging" never says Charging.
 7. Sleep/wake, lock/unlock: one panel, same place. Plug/unplug external monitor: pill follows the menu-bar screen.
 8. Fullscreen Brave: pill hides within ~1s, returns on exit. Maximized (non-fullscreen) window: pill stays.
@@ -38,15 +42,18 @@ runs opens Settings.
 10. Rebuild with the same identity and check Spotify prompts later (Phase 2).
 
 ## Known limits and deviations from the plan
-- **Escape is not supported.** The panel can never become key (that is how it avoids focus theft), so a key-only
-  Escape never fires. Dismissal is outside-click, clicking the control again, or the action button.
-- Transparent bottom-corner pixels of the pill still swallow clicks (accepted limitation from 0A).
-- Fullscreen detection is a heuristic; false positive if menu bar AND Dock are both auto-hidden with a zoomed window.
-  No fullscreen reveal-on-dwell yet; hidden means hidden (toggle in Settings).
+- Keyboard navigation is available after an explicit pin. VoiceOver labels exist, but a complete VoiceOver audit remains.
+- Transparent bottom-corner pixels pass clicks through to the application underneath.
+- In fullscreen, dwelling for 500 ms at the top-centre reveals the island; leaving it hides it again after a short grace.
+  Ambiguous full-frame windows with both menu bar and Dock hidden require a non-prompting AX fullscreen result or a real
+  Space transition, preventing ordinary in-place window zoom from being mistaken for fullscreen.
 - The 0A spike source was not available, so panel/fullscreen code was rewritten from the 0A findings, not reused.
-- Suppression while a system menu is open is not implemented yet.
-- The clock peek shows an English date only; the AD/BS preview (BSDateKit) is Phase 3.
-- VoiceOver labels exist on clock/battery but are unaudited (Phase 4).
+- The island suppresses itself while AppKit system/application menus are being tracked, using public window metadata,
+  menu-bar input state, and exact callbacks for Topside's own status menu. Escape/Return, selection clicks, and a failsafe
+  release suppression without requiring Accessibility permission.
+- BS conversion covers 2070–2099. Years through 2084 are cross-checked against official new-year dates; 2085–2099 are
+  matching projections from independent open-source tables and are display-only, not suitable for legal use.
+- VoiceOver labels exist but are unaudited.
 
 
 ---
@@ -68,7 +75,7 @@ runs opens Settings.
   coalesced read. A 15 s safety poll runs only while Spotify is running (heals missed events and permission changes).
   The log line `spotify: first playback notification received` tells you whether the event path works on your Spotify version.
 - **Reads/commands:** AppleScript through `NSAppleScript` on one serial background queue, 3 s timeout, so a hung Spotify
-  can't freeze the island. Every script checks "is running" first, so **Topside never launches Spotify by itself**.
+  can't freeze the island. Passive reads never launch Spotify; the explicit launcher control does.
 - **Permission:** the status is checked with `AEDeterminePermissionToAutomateTarget` without prompting. The system dialog appears
   only when you click the "Allow" button on the island. Denied shows a button that opens Privacy > Automation.
 - **Artwork:** needs the network (Spotify's `scdn.co` CDN only, https only). Downsampled to the drawn size, 6-entry LRU cache,
@@ -95,6 +102,8 @@ Seek/progress, volume, shuffle/repeat, queue, device picker. Add each only after
 ## Known limits
 - Property names (`artwork url`, `id`, `player state`) and the notification name are from Spotify's documented scripting
   interface but were not verified against your Spotify version.
+- The installed development build uses a stable Apple Development identity for local Automation-consent persistence.
+  Distribution outside the Mac App Store still requires a Developer ID Application identity and notarization.
 - If you later enable the hardened runtime, add the `com.apple.security.automation.apple-events` entitlement.
 - VoiceOver labels exist on the new controls, but the island's controls are mouse-driven (Phase 4 covers keyboard/VO).
 - Expanded Spotify panel is 84 pt tall (clock/battery are 66 pt). Pill grew from 184 to 186 pt wide for the art + button.

@@ -1,16 +1,17 @@
 import Foundation
 
-public enum Region: Equatable, Hashable, Sendable { case clock, battery, spotify }
+public enum Region: Equatable, Hashable, Sendable { case clock, battery, spotify, audio }
 
 public enum IslandMode: Equatable, Sendable {
     case collapsed
     case peek(Region)       // hover preview
     case expanded(Region)   // pinned by click
+    case transient(Region)  // short-lived status/error; never steals focus
 
     public var region: Region? {
         switch self {
         case .collapsed: return nil
-        case .peek(let r), .expanded(let r): return r
+        case .peek(let r), .expanded(let r), .transient(let r): return r
         }
     }
 }
@@ -31,6 +32,7 @@ public enum InteractionEvent: Equatable, Sendable {
     case dwellElapsed(token: Int)
     case graceElapsed(token: Int)
     case clicked(Region)
+    case showTransient(Region)
     case outsideClick
     case escape
     case setSuppressed(Bool)
@@ -58,6 +60,8 @@ public enum InteractionReducer {
             switch s.mode {
             case .expanded:
                 return [.cancelTimers]                          // pinned: pointer position is irrelevant
+            case .transient:
+                return [.cancelTimers]                          // its owner controls the lifetime
             case .collapsed:
                 if region == nil { return [.cancelTimers] }
                 return [.startDwell(token: s.token, delay: Timing.hoverDwell)]
@@ -84,6 +88,14 @@ public enum InteractionReducer {
             s.hovered = r
             s.token += 1
             s.mode = (s.mode == .expanded(r)) ? .collapsed : .expanded(r)   // at most one pinned panel
+            return [.cancelTimers]
+
+        case .showTransient(let r):
+            guard !s.suppressed else { return [] }
+            // Explicitly pinned content has higher priority than ambient status.
+            if case .expanded = s.mode { return [] }
+            s.token += 1
+            s.mode = .transient(r)
             return [.cancelTimers]
 
         case .outsideClick, .escape:

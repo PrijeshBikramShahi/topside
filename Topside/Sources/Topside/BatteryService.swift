@@ -7,6 +7,8 @@ import TopsideCore
 final class BatteryService: NSObject {
     var onChange: ((PowerSnapshot) -> Void)?
     private var source: CFRunLoopSource?
+    private var lastSnapshot: PowerSnapshot?
+    private var settleTask: Task<Void, Never>?
 
     func start() {
         let context = Unmanaged.passUnretained(self).toOpaque()
@@ -26,7 +28,34 @@ final class BatteryService: NSObject {
 
     @objc private func lowPowerChanged() { refresh() }
 
-    func refresh() { onChange?(readSnapshot()) }
+    func refresh() {
+        let snapshot = readSnapshot()
+        let wasResolved = lastSnapshot.map(isResolved) ?? false
+        guard !wasResolved || isResolved(snapshot) else {
+            // Power-source notifications can momentarily expose an empty or
+            // incomplete list while AC is disconnected. Keep the last real
+            // battery state until IOKit settles instead of collapsing layout.
+            settleTask?.cancel()
+            settleTask = Task { [weak self] in
+                try? await Task.sleep(nanoseconds: 350_000_000)
+                guard let self, !Task.isCancelled else { return }
+                self.publish(self.readSnapshot())
+            }
+            return
+        }
+        publish(snapshot)
+    }
+
+    private func publish(_ snapshot: PowerSnapshot) {
+        settleTask?.cancel()
+        settleTask = nil
+        lastSnapshot = snapshot
+        onChange?(snapshot)
+    }
+
+    private func isResolved(_ snapshot: PowerSnapshot) -> Bool {
+        !snapshot.hasBattery || (snapshot.percent != nil && snapshot.isOnACPower != nil)
+    }
 
     private func readSnapshot() -> PowerSnapshot {
         let lowPower = ProcessInfo.processInfo.isLowPowerModeEnabled

@@ -16,6 +16,12 @@
     "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/ArtworkLoader.swiftdeps",
     "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/ArtworkLoader.dia"
   },
+  "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/AudioOutputService.swift": {
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/AudioOutputService.swift.o",
+    "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/AudioOutputService~partial.swiftmodule",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/AudioOutputService.swiftdeps",
+    "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/AudioOutputService.dia"
+  },
   "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/BatteryService.swift": {
     "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/BatteryService.swift.o",
     "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/BatteryService~partial.swiftmodule",
@@ -40,6 +46,18 @@
     "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/FullscreenMonitor.swiftdeps",
     "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/FullscreenMonitor.dia"
   },
+  "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/FullscreenRevealMonitor.swift": {
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/FullscreenRevealMonitor.swift.o",
+    "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/FullscreenRevealMonitor~partial.swiftmodule",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/FullscreenRevealMonitor.swiftdeps",
+    "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/FullscreenRevealMonitor.dia"
+  },
+  "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/GlobalHotKeyService.swift": {
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/GlobalHotKeyService.swift.o",
+    "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/GlobalHotKeyService~partial.swiftmodule",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/GlobalHotKeyService.swiftdeps",
+    "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/GlobalHotKeyService.dia"
+  },
   "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/IslandController.swift": {
     "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/IslandController.swift.o",
     "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/IslandController~partial.swiftmodule",
@@ -63,6 +81,12 @@
     "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/Log~partial.swiftmodule",
     "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/Log.swiftdeps",
     "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/Log.dia"
+  },
+  "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/MenuTrackingMonitor.swift": {
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/MenuTrackingMonitor.swift.o",
+    "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/MenuTrackingMonitor~partial.swiftmodule",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/MenuTrackingMonitor.swiftdeps",
+    "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/MenuTrackingMonitor.dia"
   },
   "/Users/prizesh/code/topside_claude/Topside/Sources/Topside/Preferences.swift": {
     "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/release/Topside.build/Preferences.swift.o",

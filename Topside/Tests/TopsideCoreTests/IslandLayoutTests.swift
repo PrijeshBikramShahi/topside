@@ -13,6 +13,12 @@ final class IslandLayoutTests: XCTestCase {
         XCTAssertEqual(g.size.height, 36)
     }
 
+    func testDetailStatesUseAvailableReadableWidth() {
+        for mode in [IslandMode.peek(.battery), .expanded(.clock), .expanded(.spotify), .transient(.audio)] {
+            XCTAssertEqual(IslandLayout.geometry(metrics: m, content: content, mode: mode).size.width, m.maxWidth)
+        }
+    }
+
     func testWidthClampsToMinimum() {
         let g = IslandLayout.geometry(metrics: m, content: IslandContent(clockWidth: 50, batteryWidth: 0), mode: .collapsed)
         XCTAssertEqual(g.size.width, 184)                       // natural 136 < 184
@@ -38,8 +44,9 @@ final class IslandLayoutTests: XCTestCase {
     }
 
     func testHeightGrowsWithMode() {
-        XCTAssertEqual(IslandLayout.geometry(metrics: m, content: content, mode: .peek(.clock)).size.height, 66)
-        XCTAssertEqual(IslandLayout.geometry(metrics: m, content: content, mode: .expanded(.clock)).size.height, 102)
+        XCTAssertEqual(IslandLayout.geometry(metrics: m, content: content, mode: .peek(.clock)).size.height, 80)
+        XCTAssertEqual(IslandLayout.geometry(metrics: m, content: content, mode: .transient(.spotify)).size.height, 66)
+        XCTAssertEqual(IslandLayout.geometry(metrics: m, content: content, mode: .expanded(.clock)).size.height, 120)
         XCTAssertEqual(IslandLayout.geometry(metrics: m, content: content, mode: .expanded(.spotify)).size.height, 120)
     }
 
@@ -73,6 +80,17 @@ final class IslandLayoutTests: XCTestCase {
         XCTAssertEqual(IslandLayout.hit(CGPoint(x: 50, y: 50), geometry: g, mode: .collapsed), .outside)
     }
 
+    func testTransparentBottomCornersAreOutsideVisibleShape() {
+        let g = IslandLayout.geometry(metrics: m, content: content, mode: .collapsed)
+        XCTAssertFalse(IslandLayout.containsVisibleShape(CGPoint(x: 0, y: g.size.height - 0.1),
+                                                         size: g.size, cornerRadius: m.cornerRadius))
+        XCTAssertFalse(IslandLayout.containsVisibleShape(CGPoint(x: g.size.width - 0.1, y: g.size.height - 0.1),
+                                                         size: g.size, cornerRadius: m.cornerRadius))
+        XCTAssertTrue(IslandLayout.containsVisibleShape(CGPoint(x: m.cornerRadius, y: g.size.height - 0.1),
+                                                        size: g.size, cornerRadius: m.cornerRadius))
+        XCTAssertEqual(IslandLayout.hit(CGPoint(x: 0, y: g.size.height - 0.1), geometry: g, mode: .collapsed), .outside)
+    }
+
     func testCompactButtonAndArtworkHits() {
         let g = IslandLayout.geometry(metrics: m, content: content, mode: .collapsed)
         XCTAssertEqual(IslandLayout.hit(CGPoint(x: g.playRect.midX, y: g.playRect.midY), geometry: g, mode: .collapsed), .compact)
@@ -82,11 +100,21 @@ final class IslandLayoutTests: XCTestCase {
     func testDetailAndActionHits() {
         let peek = IslandLayout.geometry(metrics: m, content: content, mode: .peek(.battery))
         XCTAssertEqual(IslandLayout.hit(CGPoint(x: 50, y: 45), geometry: peek, mode: .peek(.battery)), .detail(.battery))
-        let pinned = IslandLayout.geometry(metrics: m, content: content, mode: .expanded(.clock))
-        XCTAssertEqual(IslandLayout.hit(CGPoint(x: pinned.actionRect.midX, y: pinned.actionRect.midY), geometry: pinned, mode: .expanded(.clock)), .action(.clock))
-        XCTAssertEqual(IslandLayout.hit(CGPoint(x: 50, y: 40), geometry: pinned, mode: .expanded(.clock)), .detail(.clock))
+        let pinned = IslandLayout.geometry(metrics: m, content: content, mode: .expanded(.battery))
+        XCTAssertEqual(IslandLayout.hit(CGPoint(x: pinned.actionRect.midX, y: pinned.actionRect.midY), geometry: pinned, mode: .expanded(.battery)), .action(.battery))
+        XCTAssertEqual(IslandLayout.hit(CGPoint(x: 50, y: 40), geometry: pinned, mode: .expanded(.battery)), .detail(.battery))
         XCTAssertEqual(pinned.actionRect.maxY, 36 + 30 + 24)
         XCTAssertLessThan(pinned.actionRect.maxY, pinned.size.height)
+    }
+
+    func testDateCopyControlsAreDistinctAndHittable() {
+        let g = IslandLayout.geometry(metrics: m, content: content, mode: .expanded(.clock))
+        XCTAssertEqual(g.dateControls.map(\.control), [.ad, .bs, .both])
+        XCTAssertEqual(g.actionRect, .zero)
+        for item in g.dateControls {
+            XCTAssertEqual(IslandLayout.hit(CGPoint(x: item.rect.midX, y: item.rect.midY),
+                                            geometry: g, mode: .expanded(.clock)), .dateCopy(item.control))
+        }
     }
 
     func testNoActionRectWhenOnlyPeeking() {

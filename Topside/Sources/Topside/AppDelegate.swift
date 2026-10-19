@@ -1,4 +1,5 @@
 import AppKit
+import Combine
 
 @main
 @MainActor
@@ -14,6 +15,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var island: IslandController?
     private var status: StatusItemController?
     private let settings = SettingsWindowController()
+    private let hotKey = GlobalHotKeyService()
+    private var cancellables = Set<AnyCancellable>()
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         // Single instance: if one is already running, bring up its Settings and exit.
@@ -34,10 +37,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         status.onToggleHidden = { [weak island] in island?.toggleUserHidden() }
         status.onSettings = { [weak self] in self?.settings.show() }
         status.onResetPlacement = { Preferences.shared.resetPlacement() }
+        status.onMenuTracking = { [weak island] in island?.setOwnMenuTracking($0) }
         status.install()
         self.status = status
 
         island.start()
+
+        hotKey.onPress = { [weak island] in island?.toggleUserHidden() }
+        hotKey.update(Preferences.shared.globalShortcut)
+        Preferences.shared.$globalShortcut.dropFirst().sink { [weak self] shortcut in
+            self?.hotKey.update(shortcut)
+        }.store(in: &cancellables)
     }
 
     /// Relaunching an already-running app lands here: Settings is the always-available way back in.

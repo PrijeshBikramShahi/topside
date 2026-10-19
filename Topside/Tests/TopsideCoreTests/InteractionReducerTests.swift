@@ -126,4 +126,21 @@ final class InteractionReducerTests: XCTestCase {
         _ = reduce(&s, .graceElapsed(token: s.token))
         XCTAssertEqual(s.mode, .collapsed)
     }
+
+    func testTransientDoesNotReplacePinnedContent() {
+        var s = InteractionState()
+        _ = reduce(&s, .clicked(.clock))
+        _ = reduce(&s, .showTransient(.spotify))
+        XCTAssertEqual(s.mode, .expanded(.clock))
+    }
+
+    func testTransientCanBeDismissedOrOpenedExplicitly() {
+        var s = InteractionState()
+        _ = reduce(&s, .showTransient(.spotify))
+        XCTAssertEqual(s.mode, .transient(.spotify))
+        _ = reduce(&s, .clicked(.spotify))
+        XCTAssertEqual(s.mode, .expanded(.spotify))
+        _ = reduce(&s, .outsideClick)
+        XCTAssertEqual(s.mode, .collapsed)
+    }
 }

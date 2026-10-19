@@ -33,6 +33,20 @@ struct SettingsView: View {
             Section("Fullscreen") {
                 Toggle("Hide island when the frontmost app is fullscreen", isOn: $prefs.hideInFullscreen)
             }
+            Section("System") {
+                Toggle("Launch at login", isOn: Binding(
+                    get: { prefs.launchAtLogin },
+                    set: { prefs.setLaunchAtLogin($0) }
+                ))
+                if let error = prefs.launchAtLoginError {
+                    Text(error).font(.footnote).foregroundStyle(.red)
+                }
+                Picker("Show or hide island", selection: $prefs.globalShortcut) {
+                    ForEach(GlobalShortcut.allCases) { shortcut in
+                        Text(shortcut.title).tag(shortcut)
+                    }
+                }
+            }
             Section {
                 Button("Reset to Defaults") { prefs.resetToDefaults() }
             }

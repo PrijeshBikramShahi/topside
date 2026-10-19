@@ -10,6 +10,7 @@ final class StatusItemController: NSObject, NSMenuDelegate {
     var onToggleHidden: () -> Void = {}
     var onSettings: () -> Void = {}
     var onResetPlacement: () -> Void = {}
+    var onMenuTracking: (Bool) -> Void = { _ in }
 
     func install() {
         if let button = item.button {
@@ -50,6 +51,9 @@ final class StatusItemController: NSObject, NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
         hideItem.title = isIslandHidden() ? "Show Island" : "Hide Island"
     }
+
+    func menuWillOpen(_ menu: NSMenu) { onMenuTracking(true) }
+    func menuDidClose(_ menu: NSMenu) { onMenuTracking(false) }
 
     @objc private func toggleHidden() { onToggleHidden() }
     @objc private func openSettings() { onSettings() }

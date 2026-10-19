@@ -2,6 +2,13 @@
   "": {
     "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/primary.swiftdeps"
   },
+  "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/BSDateTests.swift": {
+    "dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/BSDateTests.d",
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/BSDateTests.swift.o",
+    "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/BSDateTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/BSDateTests.swiftdeps",
+    "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/BSDateTests.dia"
+  },
   "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/BatteryMapperTests.swift": {
     "dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/BatteryMapperTests.d",
     "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/BatteryMapperTests.swift.o",
@@ -15,6 +22,13 @@
     "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/ClockFormatTests~partial.swiftmodule",
     "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/ClockFormatTests.swiftdeps",
     "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/ClockFormatTests.dia"
+  },
+  "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/FullscreenDecisionTests.swift": {
+    "dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/FullscreenDecisionTests.d",
+    "object": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/FullscreenDecisionTests.swift.o",
+    "swiftmodule": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/FullscreenDecisionTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/FullscreenDecisionTests.swiftdeps",
+    "diagnostics": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/FullscreenDecisionTests.dia"
   },
   "/Users/prizesh/code/topside_claude/Topside/Tests/TopsideCoreTests/InteractionReducerTests.swift": {
     "dependencies": "/Users/prizesh/code/topside_claude/Topside/.build/arm64-apple-macosx/debug/TopsideCoreTests.build/InteractionReducerTests.d",

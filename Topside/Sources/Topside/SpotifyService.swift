@@ -13,6 +13,7 @@ final class SpotifyService: NSObject {
     private var safetyTimer: Timer?
     private var lastAvailability: SpotifyAvailability?
     private var eventCount = 0
+    private var retention = SpotifyStateRetention()
 
     func start() {
         DistributedNotificationCenter.default().addObserver(
@@ -76,11 +77,12 @@ final class SpotifyService: NSObject {
     /// Stale results (an older read finishing after a newer one started) are dropped.
     private func deliver(_ snapshot: SpotifySnapshot, generation g: Int) {
         guard g == generation else { return }
-        if snapshot.availability != lastAvailability {
-            lastAvailability = snapshot.availability
-            Log.info("spotify availability=\(snapshot.availability)")
+        let retained = retention.accept(snapshot)
+        if retained.availability != lastAvailability {
+            lastAvailability = retained.availability
+            Log.info("spotify availability=\(retained.availability)")
         }
-        onChange?(snapshot)
+        onChange?(retained)
     }
 
     /// Reports the real outcome. The UI never assumes success: state updates only when the follow-up read arrives.
