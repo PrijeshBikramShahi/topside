@@ -6,7 +6,7 @@
 
 Time, battery, Nepali dates, and Spotify controls—right where you need them, without replacing the native menu bar.
 
-![Topside in its compact idle state](assets/screenshots/idle.png)
+<img src="assets/screenshots/closeups/idle.png" alt="Topside in its compact resting state" width="900" />
 
 *Compact by default. More detail when you hover or focus.*
 
@@ -19,31 +19,44 @@ Time, battery, Nepali dates, and Spotify controls—right where you need them, w
 
 ## Screenshots
 
-Topside uses progressive disclosure: the resting island stays minimal, hovering reveals contextual information, and clicking pins an interactive focused view.
+Topside uses progressive disclosure: the island stays small at rest, shows a preview on hover, and opens interactive controls when focused. These **close-up screenshots** focus on the actual interface rather than the entire desktop.
 
 ### Clock and dates
 
-| Hover | Focused |
-|:---:|:---:|
-| ![Clock hover preview](assets/screenshots/clock_hover.png) | ![Clock focused view](assets/screenshots/clock_focused.png) |
+**Hover —** a quick preview of Gregorian (AD) and Bikram Sambat (BS) dates.
 
-Preview Gregorian (AD) and Bikram Sambat (BS) dates, and copy either date or both—without opening a full calendar.
+![Clock hover close-up](assets/screenshots/closeups/clock_hover.png)
+
+**Focused —** copy the AD date, BS date, or both, without opening a calendar.
+
+![Clock focused close-up](assets/screenshots/closeups/clock_focused.png)
 
 ### Battery and charging
 
-| Hover | Focused |
-|:---:|:---:|
-| ![Battery hover preview](assets/screenshots/battery_hover.png) | ![Battery focused view](assets/screenshots/battery_focused.png) |
+**Hover —** glanceable battery and charging status.
 
-See contextual battery and charging information, including Low Power Mode awareness.
+![Battery hover close-up](assets/screenshots/closeups/battery_hover.png)
+
+**Focused —** more details and access to power-related settings.
+
+![Battery focused close-up](assets/screenshots/closeups/battery_focused.png)
 
 ### Spotify
 
-| Hover | Focused |
-|:---:|:---:|
-| ![Spotify hover preview](assets/screenshots/spotify_hover.png) | ![Spotify focused player](assets/screenshots/spotify_focused.png) |
+**Hover —** see current playback information with minimal distraction.
 
-View playback details and album artwork, with play/pause and contextual transport controls for the Spotify desktop app.
+![Spotify hover close-up](assets/screenshots/closeups/spotify_hover.png)
+
+**Focused —** playback controls and contextual track information.
+
+![Spotify focused close-up](assets/screenshots/closeups/spotify_focused.png)
+
+<details>
+<summary>View full-desktop screenshots</summary>
+
+The original, uncropped screenshots are also available: [Idle](assets/screenshots/idle.png) · [Clock hover](assets/screenshots/clock_hover.png) · [Clock focused](assets/screenshots/clock_focused.png) · [Battery hover](assets/screenshots/battery_hover.png) · [Battery focused](assets/screenshots/battery_focused.png) · [Spotify hover](assets/screenshots/spotify_hover.png) · [Spotify focused](assets/screenshots/spotify_focused.png).
+
+</details>
 
 ## Features
 
@@ -115,7 +128,8 @@ Spotify control requests macOS Automation permission and does not silently launc
 ```text
 Topside/
 ├── assets/
-│   └── screenshots/       # Real application screenshots used in this README
+│   └── screenshots/
+│       └── closeups/      # Generated README close-ups
 ├── Sources/
 │   ├── Topside/            # AppKit/SwiftUI UI and macOS services
 │   └── TopsideCore/        # Date, layout, battery, and interaction logic
