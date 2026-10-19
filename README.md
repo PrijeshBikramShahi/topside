@@ -1,108 +1,150 @@
+<div align="center">
+
 # topside.
 
-**A lightweight, adaptive island for macOS.**
+**A small, adaptive island for macOS.**
 
-Topside places a compact, interactive island at the top of your Mac's display. It brings together the time, battery and charging state, Nepali and Gregorian dates, Spotify playback, and small contextual interactions—without taking over the native menu bar.
+Time, battery, Nepali dates, and Spotify controls—right where you need them, without replacing the native menu bar.
 
-> **Status:** Early macOS prototype (v0.3.0). Built for personal use; not yet a polished public release.
+![Topside in its compact idle state](assets/screenshots/idle.png)
+
+*Compact by default. More detail when you hover or focus.*
+
+[Features](#features) · [Screenshots](#screenshots) · [Build & run](#build--run) · [Install](#install-in-applications) · [Limitations](#current-status--limitations)
+
+</div>
+
+> [!NOTE]
+> **Early prototype · v0.3.0.** Topside is a personal, local-first macOS project. It is not yet a polished public release.
+
+## Screenshots
+
+Topside uses progressive disclosure: the resting island stays minimal, hovering reveals contextual information, and clicking pins an interactive focused view.
+
+### Clock and dates
+
+| Hover | Focused |
+|:---:|:---:|
+| ![Clock hover preview](assets/screenshots/clock_hover.png) | ![Clock focused view](assets/screenshots/clock_focused.png) |
+
+Preview Gregorian (AD) and Bikram Sambat (BS) dates, and copy either date or both—without opening a full calendar.
+
+### Battery and charging
+
+| Hover | Focused |
+|:---:|:---:|
+| ![Battery hover preview](assets/screenshots/battery_hover.png) | ![Battery focused view](assets/screenshots/battery_focused.png) |
+
+See contextual battery and charging information, including Low Power Mode awareness.
+
+### Spotify
+
+| Hover | Focused |
+|:---:|:---:|
+| ![Spotify hover preview](assets/screenshots/spotify_hover.png) | ![Spotify focused player](assets/screenshots/spotify_focused.png) |
+
+View playback details and album artwork, with play/pause and contextual transport controls for the Spotify desktop app.
 
 ## Features
 
-- **Adaptive island:** compact at rest, expanded with deliberate hover or click; adjustable height and vertical offset.
-- **Clock and battery:** 12/24-hour time, charging state, Low Power Mode, and contextual battery details.
-- **Dual calendars:** Gregorian (AD) and Bikram Sambat (BS) date preview; copy AD, BS, or both. No full calendar interface.
-- **Spotify integration:** album artwork, play/pause, track details on hover, and previous/next controls in the pinned player. Explicit permission handling and clear error states.
-- **Subtle microinteractions:** hover dwell, leave grace, charging feedback, and audio-output awareness.
-- **System-aware behavior:** fullscreen auto-hide, top-edge reveal, menu-tracking suppression, sleep/wake recovery, and active-display placement.
-- **Keyboard and accessibility:** explicit pinning for keyboard interaction, Escape to dismiss, accessibility labels, and configurable show/hide shortcuts.
-- **Native and local-first:** Swift, AppKit/SwiftUI, IOKit; no mandatory account, subscription, or cloud backend. Spotify artwork may be downloaded from Spotify's CDN.
+- **Adaptive island** — a quiet, compact resting state with hover previews and click-to-pin interaction.
+- **Clock and battery** — 12/24-hour clock, charging feedback, battery details, and Low Power Mode awareness.
+- **AD + BS dates** — Gregorian and Nepali date previews, with individual or combined copy actions; intentionally no full calendar.
+- **Spotify integration** — playback state, album art, track information, and transport controls using macOS Automation permissions.
+- **Contextual microinteractions** — hover dwell, leave grace, and audio-output awareness.
+- **System-aware behavior** — fullscreen hiding and top-edge reveal, sleep/wake recovery, and active-display placement.
+- **Native and local-first** — Swift, AppKit/SwiftUI, and IOKit; no mandatory account or cloud backend for core features.
 
 ## Requirements
 
-- macOS 13 or newer
-- Apple Silicon or compatible macOS Swift build environment
-- Xcode Command Line Tools / Swift toolchain (Swift tools version 5.9 or later)
-- Spotify desktop app for music controls (optional)
+- macOS **13 Ventura or later**
+- Xcode Command Line Tools and a Swift **5.9+** compatible toolchain
+- Spotify desktop application for music controls (optional)
 
-## Build and run
+## Build & run
 
-Clone the repository and run from its root:
+Clone the repository:
 
 ```bash
 git clone https://github.com/PrijeshBikramShahi/topside.git
 cd topside
+```
+
+Run tests, package the application, and launch it:
+
+```bash
 swift test
 bash build_app.sh
 open build/Topside.app
 ```
 
-`build_app.sh` builds a release binary and packages an app in `build/Topside.app`. It prefers an available Developer ID Application signing identity, falls back to an Apple Development identity, and finally to ad-hoc signing. A stable signing identity is recommended for macOS Automation permissions to persist between builds.
+The script compiles a release executable and creates `build/Topside.app`, using an available signing identity or ad-hoc signing if necessary. For consistent macOS Automation permissions across rebuilds, a stable signing identity is preferable.
 
-The app runs as a menu-bar/accessory application (no Dock icon). Use the menu-bar capsule icon to open Settings, hide/show the island, or quit. Launching the app again while it is already running opens Settings.
+Topside runs as a **menu-bar accessory app**, so it normally does **not** appear in the Dock. Use its menu-bar status item for settings, visibility, and quitting. Launching a second instance opens Settings.
 
-**Logs:** `~/Library/Logs/Topside.log`  
-**Bundle ID:** `com.prizesh.topside`
+## Install in Applications
 
-## How it works
+After building, quit any running instance and copy the app bundle into your personal Applications folder (no administrator password required):
 
-| Interaction | Result |
+```bash
+mkdir -p "$HOME/Applications"
+ditto build/Topside.app "$HOME/Applications/Topside.app"
+open "$HOME/Applications/Topside.app"
+```
+
+It can then be launched from Finder or Spotlight. To start Topside at login, add it under **System Settings → General → Login Items & Extensions**.
+
+> Rebuild and recopy the app after source changes. Always quit the running installed version before replacing its bundle.
+
+## Interactions
+
+| Action | Behavior |
 | --- | --- |
-| Resting island | Clock, relevant battery state, compact Spotify controls |
-| Hover over a section | Brief contextual preview after a short dwell |
-| Click a section | Pin its expanded content |
-| Click outside or press Escape | Dismiss pinned content |
-| Click a date action | Copy AD, BS, or both dates |
-| Enter fullscreen | Hide island; reveal temporarily at the top edge |
-| Use the menu-bar icon | Open settings, visibility controls, or quit |
+| Leave the island idle | Show the compact clock, relevant battery state, and Spotify area |
+| Hover over a section | Reveal a contextual preview after a brief dwell |
+| Click a section | Pin the expanded, interactive view |
+| Click away or press Escape | Dismiss the pinned view |
+| Use the date actions | Copy AD, BS, or both dates |
+| Enter fullscreen | Hide the island; temporarily reveal it near the top edge |
+| Open the menu-bar status item | Access Settings, visibility, or Quit |
 
-Spotify control requires permission from macOS Automation. Topside does not silently launch Spotify when checking playback. Some transport actions depend on the installed Spotify version and account behavior.
+Spotify control requests macOS Automation permission and does not silently launch Spotify just to check playback.
 
-## Project structure
+## Project layout
 
 ```text
-Sources/
-  Topside/          # App, island UI, system integration, Spotify services
-  TopsideCore/      # Pure logic for dates, battery, layout, interaction and playback states
-Tests/
-  TopsideCoreTests/ # Core unit tests
-Package.swift       # Swift Package Manager manifest
-build_app.sh         # App bundle build and signing script
-THIRD_PARTY_NOTICES.md
+Topside/
+├── assets/
+│   └── screenshots/       # Real application screenshots used in this README
+├── Sources/
+│   ├── Topside/            # AppKit/SwiftUI UI and macOS services
+│   └── TopsideCore/        # Date, layout, battery, and interaction logic
+├── Tests/
+│   └── TopsideCoreTests/   # Unit tests
+├── Package.swift
+├── build_app.sh            # Release build, app bundle, and signing
+├── THIRD_PARTY_NOTICES.md
+└── README.md
 ```
 
-## Current verification and limitations
+## Current status & limitations
 
-The project's previous verification record (19 October 2026) reports successful debug/release builds and **84 passing core tests**, with a small set of on-device island interactions checked manually. Treat those numbers as a development snapshot, not a promise about every machine or build.
+The development verification snapshot dated **19 October 2026** reported debug/release builds and **84 passing core tests**. That is historical test evidence, not a guarantee for every Mac.
 
-Areas that still need full manual validation include Spotify transport/permission flows, external-display transitions, hardware power-state transitions, and a complete VoiceOver audit. BS conversion covers **BS 2070–2099**; dates after 2084 use cross-checked projected calendar data and **should not be used for legal or official purposes**.
-
-Topside is currently a **virtual island**, not a complete replacement for the macOS menu bar. Expanded menu-bar functionality is a separate planned direction.
-
-## Development
-
-Run core tests:
-
-```bash
-swift test
-```
-
-Create a fresh local build:
-
-```bash
-bash build_app.sh
-open build/Topside.app
-```
-
-SwiftPM's `.build/` directory and the packaged `build/` app are generated artifacts; they should not be committed. See `.gitignore`.
+- Spotify permissions and transport behavior still need broader manual validation.
+- External-display and power-state transitions need additional on-device testing.
+- A full VoiceOver audit is pending.
+- BS date conversion covers **2070–2099 BS**. Dates beyond 2084 use projected calendar data and must not be relied upon for official/legal purposes.
+- Topside currently provides a **virtual island**, not a custom replacement for the macOS menu bar. Expanded menu-bar functionality is a separate planned direction.
 
 ## Privacy
 
-Topside's core clock, battery, date, and display behaviors run locally. Spotify integration uses local AppleScript automation, with user-controlled macOS permissions. Album art may be fetched from Spotify-hosted URLs. The development log records state changes/error codes rather than track titles or artists.
+Core time, battery, date, and display behavior stays on-device. Spotify control uses local AppleScript Automation, subject to macOS permissions. Album artwork may load from Spotify-hosted URLs. No Topside account or mandatory subscription is required.
 
-## Third-party notices
+Logs: `~/Library/Logs/Topside.log` · Bundle ID: `com.prizesh.topside`
 
-See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for attribution and license notices concerning Bikram Sambat calendar data.
+## Attribution & license
 
-## License
+Read [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for Bikram Sambat calendar-data attributions.
 
-**No project-wide license has been declared yet.** Until a license is added, normal copyright restrictions apply. Third-party notices do not, by themselves, license the whole project.
+**No project-wide license has been declared.** Unless a license is added, standard copyright restrictions apply.
