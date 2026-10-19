@@ -1,0 +1,27 @@
+# Swift Package Manager generated content
+.build/
+.swiftpm/xcode/package.xcworkspace/xcuserdata/
+.swiftpm/configuration/registries.json
+
+# Locally packaged app and derived binaries
+/build/
+DerivedData/
+*.dSYM/
+*.app/
+
+# Xcode user-specific files
+*.xcuserstate
+xcuserdata/
+
+# macOS metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+__MACOSX/
+
+# Editor and local scratch
+.vscode/
+.idea/
+*.swp
+*~
