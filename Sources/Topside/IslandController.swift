@@ -1,5 +1,6 @@
 import AppKit
 import Combine
+import CoreAudio
 import TopsideCore
 
 /// Owns the single island: wires services -> model, pointer input -> reducer, reducer -> panel frame.
@@ -18,12 +19,23 @@ final class IslandController: NSObject, IslandRootViewDelegate {
     private let menuTracking = MenuTrackingMonitor()
     private let spotify = SpotifyService()
     private let audio = AudioOutputService()
+    private let wifi = WiFiService()
+    /// Output the user just picked from the chip, so the resulting route change is not announced back to them.
+    private var userChosenOutputID: UInt32?
     private let artwork = ArtworkLoader()
     private var currentArtworkURL: URL?
     private var noticeTask: Task<Void, Never>?
-    private var lastBatteryStatus: BatteryStatus?
+    private var lastBatteryDisplay: BatteryDisplay?
+    private var powerAnnouncer = PowerAnnouncer()
+    private var powerSettleTask: Task<Void, Never>?
+    private var quiet = QuietWindow()
     private var lastAudioOutputID: UInt32?
     private var keyboardFocusIndex = 0
+    /// The focus ring is for keyboard users only: it appears on the first Tab/arrow/Return press
+    /// and disappears again on any mouse click or when the pinned view closes.
+    private var keyboardFocusVisible = false
+    private var progressRefreshTask: Task<Void, Never>?
+    private var copiedFeedbackTask: Task<Void, Never>?
 
     private var interaction = InteractionState()
     private var timerTask: Task<Void, Never>?
@@ -51,12 +63,14 @@ final class IslandController: NSObject, IslandRootViewDelegate {
         model.activateDateCopy = { [weak self] in self?.performDateCopy($0) }
         model.activateRegionAction = { [weak self] in self?.performAction(for: $0) }
         model.reduceMotion = NSWorkspace.shared.accessibilityDisplayShouldReduceMotion
+        model.reduceTransparency = NSWorkspace.shared.accessibilityDisplayShouldReduceTransparency
         registerObservers()
 
         clock.onTick = { [weak self] in self?.tick() }
         battery.onChange = { [weak self] snapshot in self?.batteryChanged(snapshot) }
         spotify.onChange = { [weak self] snapshot in self?.spotifyChanged(snapshot) }
         audio.onChange = { [weak self] snapshot in self?.audioOutputChanged(snapshot) }
+        wifi.onChange = { [weak self] snapshot in self?.wifiChanged(snapshot) }
         fullscreen.displayContext = { [weak self] in self?.context }
         fullscreen.onChange = { [weak self] on in self?.fullscreenChanged(on) }
         fullscreenReveal.displayFrame = { [weak self] in self?.context?.frame }
@@ -80,6 +94,7 @@ final class IslandController: NSObject, IslandRootViewDelegate {
         battery.start()
         spotify.start()
         audio.start()
+        wifi.start()
         fullscreen.start()
         fullscreenReveal.start()
         menuTracking.start()
@@ -117,10 +132,13 @@ final class IslandController: NSObject, IslandRootViewDelegate {
 
     @objc private func screensChanged() { refreshDisplay() }
     @objc private func willSleep() { setSuppressed(.sleeping, true) }
-    @objc private func didWake() { setSuppressed(.sleeping, false); refreshDisplay(); battery.refresh(); spotify.refresh(after: 1.0) }
+    @objc private func didWake() { quiet.begin(for: Timing.wakeQuiet); setSuppressed(.sleeping, false); refreshDisplay(); battery.refresh(); wifi.refresh(); spotify.refresh(after: 1.0) }
     @objc private func locked() { setSuppressed(.locked, true) }
-    @objc private func unlocked() { setSuppressed(.locked, false); refreshDisplay() }
-    @objc private func reduceMotionChanged() { model.reduceMotion = NSWorkspace.shared.accessibilityDisplayShouldReduceMotion }
+    @objc private func unlocked() { quiet.begin(for: Timing.wakeQuiet); setSuppressed(.locked, false); refreshDisplay() }
+    @objc private func reduceMotionChanged() {
+        model.reduceMotion = NSWorkspace.shared.accessibilityDisplayShouldReduceMotion
+        model.reduceTransparency = NSWorkspace.shared.accessibilityDisplayShouldReduceTransparency
+    }
 
     // MARK: Model updates
 
@@ -130,23 +148,52 @@ final class IslandController: NSObject, IslandRootViewDelegate {
         model.adDateText = date.ad
         model.bsDateText = date.bs
         model.combinedDateText = date.combined
+        model.dateWeekday = date.weekday
+        model.dateDetailLine = date.detailLine
         model.detailText = detailText(for: interaction.mode)
     }
 
     private func batteryChanged(_ snapshot: PowerSnapshot) {
         let display = BatteryMapper.map(snapshot)
         guard display != model.battery else { return }
-        let previousStatus = lastBatteryStatus
-        lastBatteryStatus = display.status
+        let previous = lastBatteryDisplay
+        lastBatteryDisplay = display
         model.battery = display
-        if let previousStatus, previousStatus != display.status,
-           let message = powerTransitionText(from: previousStatus, to: display) {
-            Log.info("power transition=\(message)")
-            showTransient(message, region: .battery)
-            ensureVisibleAfterPowerTransition()
-        } else {
+
+        guard let previous else {
+            _ = powerAnnouncer.settle(display, quiet: true)      // first reading: baseline only
             relayout(animated: true)
+            return
         }
+        // Falling through 20% / 10% while on battery: one warm cue, immediately.
+        if !quiet.isQuiet(), let crossing = PowerEvents.thresholdCrossing(from: previous, to: display) {
+            Log.info("power threshold=\(crossing.message)")
+            announce(crossing)
+            return
+        }
+        // Plug/unplug is announced only once the reading has held still, so flicker says nothing.
+        if previous.status != display.status {
+            powerSettleTask?.cancel()
+            powerSettleTask = Task { [weak self] in
+                try? await Task.sleep(nanoseconds: UInt64(Timing.powerSettle * 1_000_000_000))
+                guard let self, !Task.isCancelled else { return }
+                self.settlePower()
+            }
+        }
+        relayout(animated: true)
+    }
+
+    private func settlePower() {
+        powerSettleTask = nil
+        guard let announcement = powerAnnouncer.settle(model.battery, quiet: quiet.isQuiet()) else { return }
+        Log.info("power transition=\(announcement.message)")
+        announce(announcement)
+    }
+
+    private func announce(_ announcement: PowerAnnouncement) {
+        showTransient(announcement.message, region: .battery, tone: announcement.tone)
+        if announcement.tone != .neutral, !model.reduceMotion { model.batteryPulse += 1 }
+        ensureVisibleAfterPowerTransition()
     }
 
     private func spotifyChanged(_ snapshot: SpotifySnapshot) {
@@ -156,7 +203,12 @@ final class IslandController: NSObject, IslandRootViewDelegate {
             currentArtworkURL = url
             reloadArtwork(url)
         }
-        guard display != model.spotify else { return }
+        // Progress changes on every read; only a progress row appearing/disappearing changes the layout.
+        let hadProgress = model.progress != nil
+        model.progress = snapshot.progress
+        model.progressSampledAt = Date()
+        let progressRowChanged = hadProgress != (snapshot.progress != nil)
+        guard display != model.spotify || progressRowChanged else { return }
         model.spotify = display
         relayout(animated: true)
     }
@@ -164,23 +216,40 @@ final class IslandController: NSObject, IslandRootViewDelegate {
     private func reloadArtwork(_ url: URL?) {
         model.artwork = nil          // previous/incorrect-scale art must never remain visible
         artwork.cancel()
-        guard let url else { return }
-        artwork.load(url, points: 22, scale: context?.scale ?? 2) { [weak self] image in
+        guard let url else { model.artworkAverage = nil; return }      // nothing to tint from: back to neutral ink
+        // 56 pt covers the pinned player's 52 pt tile; SwiftUI scales it down for the 22 pt compact slot.
+        // The tint keeps the previous colour until the new artwork arrives, so it crossfades rather than flashing.
+        artwork.load(url, points: 56, scale: context?.scale ?? 2) { [weak self] image, average in
             guard let self, self.currentArtworkURL == url else { return }
             self.model.artwork = image
+            self.model.artworkAverage = average
         }
+    }
+
+    private func wifiChanged(_ snapshot: WiFiSnapshot) {
+        let display = WiFiMapper.map(snapshot)
+        guard display != model.wifi else { return }
+        let layoutChanged = display.isHidden != model.wifi.isHidden
+        model.wifi = display
+        if layoutChanged { relayout(animated: true) }      // signal-strength changes only redraw the icon
     }
 
     private func audioOutputChanged(_ snapshot: AudioOutputSnapshot) {
         defer { lastAudioOutputID = snapshot.id }
+        model.outputName = snapshot.name
+        model.outputSymbol = AudioOutputIcon.symbol(name: snapshot.name, transport: snapshot.transport)
+        if userChosenOutputID == snapshot.id { userChosenOutputID = nil; return }
         guard let previous = lastAudioOutputID, previous != snapshot.id else { return }
+        guard !quiet.isQuiet(), AudioRoutePolicy.shouldAnnounce(to: snapshot.transport) else { return }
         Log.info("audio output id=\(snapshot.id) name=\(snapshot.name)")
         showTransient("Audio output · \(snapshot.name)", region: .audio)
     }
 
-    private func showTransient(_ text: String, region: Region, spotifyFailure: Bool = false) {
+    private func showTransient(_ text: String, region: Region, spotifyFailure: Bool = false,
+                               tone: AnnouncementTone = .neutral) {
         if spotifyFailure { model.spotifyNotice = text }
         model.transientText = text
+        model.transientTone = tone
         if case .expanded = interaction.mode {
             // Keep the user's explicit panel in place.
             relayout(animated: false)
@@ -197,6 +266,7 @@ final class IslandController: NSObject, IslandRootViewDelegate {
             if Task.isCancelled { return }
             guard let self else { return }
             self.model.transientText = nil
+            self.model.transientTone = .neutral
             if spotifyFailure { self.model.spotifyNotice = nil }
             if case .transient(region) = self.interaction.mode {
                 self.send(.escape)
@@ -213,19 +283,6 @@ final class IslandController: NSObject, IslandRootViewDelegate {
             try? await Task.sleep(nanoseconds: 500_000_000)
             guard let self, !Task.isCancelled, self.reasons.isEmpty else { return }
             self.host.show()
-        }
-    }
-
-    private func powerTransitionText(from old: BatteryStatus, to display: BatteryDisplay) -> String? {
-        let percent = display.percent.map { " · \($0)%" } ?? ""
-        switch display.status {
-        case .charging: return "Charging\(percent)"
-        case .charged: return "Battery charged"
-        case .pluggedNotCharging: return "Plugged in\(percent)"
-        case .discharging where old == .charging || old == .charged || old == .pluggedNotCharging:
-            return "Running on battery\(percent)"
-        case .noBattery, .unknown, .discharging:
-            return nil
         }
     }
 
@@ -258,9 +315,10 @@ final class IslandController: NSObject, IslandRootViewDelegate {
         if case .transient = mode, let text = model.transientText { return text }
         switch mode.region {
         case .clock?:
+            // The "Copied" confirmation now shows inside the segment itself; only a failure replaces the weekday.
             if case .expanded(.clock) = mode, let feedback = model.transientText,
-               feedback.hasPrefix("Copied") { return feedback }
-            return model.adDateText
+               feedback.hasPrefix("Couldn't") { return feedback }
+            return model.dateWeekday
         case .battery?: return model.battery.detail
         case .spotify?:
             if let notice = model.spotifyNotice { return notice }
@@ -275,7 +333,7 @@ final class IslandController: NSObject, IslandRootViewDelegate {
     private func detailSubtext(for mode: IslandMode) -> String {
         switch mode {
         case .peek(.clock), .expanded(.clock):
-            return model.bsDateText
+            return model.dateDetailLine
         case .expanded(.spotify) where model.spotifyNotice == nil:
             let d = model.spotify
             return (d.availability == .playing || d.availability == .paused) ? d.subtitle : ""
@@ -287,8 +345,8 @@ final class IslandController: NSObject, IslandRootViewDelegate {
     private func actionTitle(for mode: IslandMode) -> String {
         guard case .expanded(let r) = mode else { return "" }
         switch r {
-        case .clock: return "Copy AD + BS"
-        case .battery: return "Open Battery settings"
+        case .clock: return ""            // the date uses the segmented capsule instead
+        case .battery: return "Battery settings"
         case .spotify: return ""          // Spotify uses per-state controls instead
         case .audio: return ""
         }
@@ -304,18 +362,27 @@ final class IslandController: NSObject, IslandRootViewDelegate {
         guard let ctx = context else { return }
         let metrics = prefs.metrics
         let batteryWidth: CGFloat = model.battery.isHidden ? 0 : BatteryLayout.width(showsPercent: model.battery.showsPercent)
+        let spotify = model.spotify
+        let hasTrack = (spotify.availability == .playing || spotify.availability == .paused) && !spotify.title.isEmpty
         let geometry = IslandLayout.geometry(metrics: metrics,
                                              content: IslandContent(clockWidth: measuredClockWidth(), batteryWidth: batteryWidth,
-                                                                    spotifyControls: model.spotify.controls),
+                                                                    spotifyControls: spotify.controls,
+                                                                    spotifyHasTrack: hasTrack,
+                                                                    spotifyHasProgress: hasTrack && model.progress != nil,
+                                                                    wifiWidth: model.wifi.isHidden ? 0 : IslandLayout.wifiIconWidth),
                                              mode: interaction.mode)
         model.metrics = metrics
+        model.tintEnabled = prefs.albumTint
+        model.tintStrength = prefs.tintStrength
+        model.grainEnabled = prefs.grain
+        model.grainStrength = prefs.grainStrength
         model.geometry = geometry
         model.mode = interaction.mode
         model.detailText = detailText(for: interaction.mode)
         model.detailSubtext = detailSubtext(for: interaction.mode)
         model.actionTitle = actionTitle(for: interaction.mode)
         updateKeyboardFocus()
-        host.updateInteractiveShape(size: geometry.size, cornerRadius: metrics.cornerRadius)
+        host.updateInteractiveShape(size: geometry.size, cornerRadius: metrics.cornerRadius, earWidth: geometry.ear)
         let frame = IslandLayout.panelFrame(geometry: geometry, displayFrame: ctx.frame, topOffset: metrics.topOffset, scale: ctx.scale)
         host.setFrame(frame, animated: animated && !model.reduceMotion)
     }
@@ -383,9 +450,30 @@ final class IslandController: NSObject, IslandRootViewDelegate {
             if case .expanded = interaction.mode { isExpanded = true } else { isExpanded = false }
             if wasExpanded != isExpanded {
                 keyboardFocusIndex = 0
+                keyboardFocusVisible = false
                 host.setKeyboardInteraction(isExpanded)
             }
             relayout(animated: true)
+            updateProgressRefresh()
+        }
+    }
+
+    /// While the pinned Spotify player is open, re-read playback every few seconds so the progress
+    /// bar stays honest after a seek or skip. Spotify's own change notification covers everything else.
+    private func updateProgressRefresh() {
+        guard case .expanded(.spotify) = interaction.mode else {
+            progressRefreshTask?.cancel()
+            progressRefreshTask = nil
+            return
+        }
+        guard progressRefreshTask == nil else { return }
+        spotify.refresh()
+        progressRefreshTask = Task { [weak self] in
+            while !Task.isCancelled {
+                try? await Task.sleep(nanoseconds: 5_000_000_000)
+                if Task.isCancelled { return }
+                self?.spotify.refresh()
+            }
         }
     }
 
@@ -413,7 +501,7 @@ final class IslandController: NSObject, IslandRootViewDelegate {
                                 cornerRadius: model.metrics.cornerRadius) {
         case .region(let r), .detail(let r), .action(let r): return r
         case .dateCopy: return .clock
-        case .compact, .control: return .spotify
+        case .compact, .control, .audioOutput: return .spotify
         case .outside: return nil
         }
     }
@@ -431,14 +519,51 @@ final class IslandController: NSObject, IslandRootViewDelegate {
     }
 
     func rootView(_ view: IslandRootView, clickedAt point: CGPoint) {
+        if keyboardFocusVisible {
+            keyboardFocusVisible = false
+            updateKeyboardFocus()
+        }
         switch IslandLayout.hit(point, geometry: model.geometry, mode: interaction.mode,
                                 cornerRadius: model.metrics.cornerRadius) {
         case .region(let r): send(.clicked(r))
         case .action(let r): performAction(for: r)
         case .compact: if let control = model.spotify.compactControl { performSpotify(control) }
         case .control(let control): performSpotify(control)
+        case .audioOutput: showOutputMenu()
         case .dateCopy(let control): performDateCopy(control)
         case .detail, .outside: break
+        }
+    }
+
+    // MARK: Output switcher
+
+    /// A native menu under the chip: current output ticked, one tap to switch. No Bluetooth permission involved.
+    private func showOutputMenu() {
+        let devices = AudioOutputService.outputDevices()
+        guard !devices.isEmpty else { return }
+        let current = AudioOutputService.currentOutputID()
+        let menu = NSMenu(title: "Sound output")
+        menu.autoenablesItems = false
+        for device in devices {
+            let item = NSMenuItem(title: device.name, action: #selector(outputMenuItemChosen(_:)), keyEquivalent: "")
+            item.target = self
+            item.tag = Int(device.id)
+            item.state = device.id == current ? .on : .off
+            item.image = NSImage(systemSymbolName: AudioOutputIcon.symbol(name: device.name, transport: device.transport),
+                                 accessibilityDescription: nil)
+            menu.addItem(item)
+        }
+        let rect = model.geometry.outputRect
+        menu.popUp(positioning: nil, at: CGPoint(x: rect.minX, y: rect.maxY + 4), in: host.rootView)
+    }
+
+    @objc private func outputMenuItemChosen(_ item: NSMenuItem) {
+        let id = AudioDeviceID(item.tag)
+        guard id != AudioOutputService.currentOutputID() else { return }
+        userChosenOutputID = id
+        if !AudioOutputService.setDefaultOutput(id) {
+            userChosenOutputID = nil
+            showTransient("Couldn't switch output", region: .audio)
         }
     }
 
@@ -453,6 +578,19 @@ final class IslandController: NSObject, IslandRootViewDelegate {
         let copied = NSPasteboard.general.setString(value, forType: .string)
         showTransient(copied ? "Copied \(control == .both ? "AD + BS" : control == .ad ? "AD" : "BS")"
                              : "Couldn't copy date", region: .clock)
+        copiedFeedbackTask?.cancel()
+        if copied {
+            // The tapped segment swaps its label for "Copied ✓" for a moment, with a light trackpad tap.
+            model.copiedDateControl = control
+            NSHapticFeedbackManager.defaultPerformer.perform(.generic, performanceTime: .default)
+            copiedFeedbackTask = Task { [weak self] in
+                try? await Task.sleep(nanoseconds: 1_200_000_000)
+                if Task.isCancelled { return }
+                self?.model.copiedDateControl = nil
+            }
+        } else {
+            model.copiedDateControl = nil
+        }
     }
 
     func rootViewRequestedDismissal(_ view: IslandRootView) {
@@ -462,6 +600,12 @@ final class IslandController: NSObject, IslandRootViewDelegate {
     func rootView(_ view: IslandRootView, moveKeyboardFocusBy delta: Int) {
         let targets = keyboardTargets()
         guard !targets.isEmpty else { return }
+        guard keyboardFocusVisible else {
+            // The first key press only reveals the ring on the current target.
+            keyboardFocusVisible = true
+            updateKeyboardFocus()
+            return
+        }
         keyboardFocusIndex = (keyboardFocusIndex + delta % targets.count + targets.count) % targets.count
         model.keyboardFocusRect = targets[keyboardFocusIndex].1
     }
@@ -469,6 +613,12 @@ final class IslandController: NSObject, IslandRootViewDelegate {
     func rootViewRequestedKeyboardActivation(_ view: IslandRootView) {
         let targets = keyboardTargets()
         guard targets.indices.contains(keyboardFocusIndex) else { return }
+        // Never fire an action the user cannot see focus on: reveal the ring first.
+        guard keyboardFocusVisible else {
+            keyboardFocusVisible = true
+            updateKeyboardFocus()
+            return
+        }
         activate(targets[keyboardFocusIndex].0)
     }
 
@@ -480,7 +630,8 @@ final class IslandController: NSObject, IslandRootViewDelegate {
         case .battery:
             return model.geometry.actionRect.isEmpty ? [] : [(.action(.battery), model.geometry.actionRect)]
         case .spotify:
-            return model.geometry.controls.map { (.control($0.control), $0.rect) }
+            let chip: [(HitTarget, CGRect)] = model.geometry.outputRect.isEmpty ? [] : [(.audioOutput, model.geometry.outputRect)]
+            return chip + model.geometry.controls.map { (.control($0.control), $0.rect) }
         case .audio:
             return []
         }
@@ -493,13 +644,14 @@ final class IslandController: NSObject, IslandRootViewDelegate {
             return
         }
         keyboardFocusIndex = min(keyboardFocusIndex, targets.count - 1)
-        model.keyboardFocusRect = targets[keyboardFocusIndex].1
+        model.keyboardFocusRect = keyboardFocusVisible ? targets[keyboardFocusIndex].1 : nil
     }
 
     private func activate(_ target: HitTarget) {
         switch target {
         case .action(let region): performAction(for: region)
         case .control(let control): performSpotify(control)
+        case .audioOutput: showOutputMenu()
         case .dateCopy(let control): performDateCopy(control)
         case .compact:
             if let control = model.spotify.compactControl { performSpotify(control) }

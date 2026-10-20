@@ -63,7 +63,12 @@ The original, uncropped screenshots are also available: [Idle](assets/screenshot
 - **Adaptive island** — a quiet, compact resting state with hover previews and click-to-pin interaction.
 - **Clock and battery** — 12/24-hour clock, charging feedback, battery details, and Low Power Mode awareness.
 - **AD + BS dates** — Gregorian and Nepali date previews, with individual or combined copy actions; intentionally no full calendar.
-- **Spotify integration** — playback state, album art, track information, and transport controls using macOS Automation permissions.
+- **Spotify integration** — playback state, album art, track information, and transport controls using macOS Automation permissions. The pinned view is a full player: large artwork, a scrolling title for long track names, and a live progress bar.
+- **Album-tinted surface** — the pinned player takes a dark, muted colour from the album artwork (the plain average colour × 0.36 + 0.04, so white text stays readable); other pinned states get a faint hint of it. The collapsed island is always pure `#050506` so it still blends with the notch. Strength and on/off are in Settings → Appearance.
+- **Film grain and depth** — a subtle deterministic grain texture and a 0.5 pt inner hairline appear as the island opens, and are off while collapsed. Grain is also dropped when macOS Reduce Transparency is on.
+- **Quieter controls** — no filled button tiles: icon-only transport with a solid play/pause circle, a segmented AD | BS | Both capsule that confirms inline ("Copied ✓" plus a light haptic), and a small "Battery settings ›" link. Battery shows a large percentage with its status underneath; the date shows the weekday with a quieter dual-date line.
+- **Notch-style shape** — optional concave top corners (Settings → Island) so the island blends into the top edge; the pinned states are wider, and opening springs slightly while closing settles without bounce.
+- **Keyboard focus ring only for keyboard users** — it appears on the first Tab, arrow, or Return press, never after a mouse click.
 - **Contextual microinteractions** — hover dwell, leave grace, and audio-output awareness.
 - **System-aware behavior** — fullscreen hiding and top-edge reveal, sleep/wake recovery, and active-display placement.
 - **Native and local-first** — Swift, AppKit/SwiftUI, and IOKit; no mandatory account or cloud backend for core features.
@@ -162,3 +167,15 @@ Logs: `~/Library/Logs/Topside.log` · Bundle ID: `com.prizesh.topside`
 Read [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for Bikram Sambat calendar-data attributions.
 
 **No project-wide license has been declared.** Unless a license is added, standard copyright restrictions apply.
+
+## Hardware cues
+
+- Plug, unplug and full-charge peeks only appear once the reading has held for 0.8 s. Moving between "charging" and "plugged in, not charging" is silent.
+- Falling through 20% or 10% on battery gives one warm-tinted peek and a single glyph pulse.
+- Nothing is announced for 2.5 s after wake or unlock.
+- Audio-output peeks only appear for Bluetooth, USB and AirPlay devices.
+- The battery percentage counts between values instead of snapping.
+- Hover is quicker: 0.08 s dwell (`Timing.hoverDwell`), 0.20 s open (`IslandMotion.growDuration`).
+- **Wi-Fi icon** beside the battery shows on/off, connected or not, and signal strength (three levels). It never reads the network name, so no Location permission is needed. It is hidden on Macs without a battery and when the collapsed island has no room.
+- **Output chip** in the pinned player shows headphones or a speaker for the current output. Click it for a menu of output devices and pick one to switch. Bluetooth connect/disconnect is not included.
+

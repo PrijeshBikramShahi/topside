@@ -84,7 +84,7 @@ final class FullscreenRevealMonitor {
 
     private var activationZone: CGRect {
         guard let display = displayFrame?() else { return .zero }
-        let width = min(max(islandFrame?()?.width ?? 184, 184), 240)
+        let width = min(max(islandFrame?()?.width ?? 184, 184), 284)
         return CGRect(x: display.midX - width / 2, y: display.maxY - 8, width: width, height: 8)
     }
 }

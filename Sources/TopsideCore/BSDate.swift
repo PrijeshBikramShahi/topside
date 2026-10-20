@@ -95,6 +95,17 @@ public struct DualDateText: Equatable, Sendable {
     public let ad: String
     public let bs: String
     public var combined: String { "AD: \(ad)\nBS: \(bs)" }
+
+    /// "Tuesday" from "Tuesday, 20 October 2026". Falls back to the whole string.
+    public var weekday: String { ad.components(separatedBy: ", ").first ?? ad }
+
+    /// "20 October 2026 · 3 Kartik 2083 BS": the quieter second line under the weekday.
+    public var detailLine: String {
+        var parts: [String] = []
+        if let range = ad.range(of: ", ") { parts.append(String(ad[range.upperBound...])) }
+        if !bs.isEmpty { parts.append(bs) }
+        return parts.joined(separator: " · ")
+    }
 }
 
 public enum DualDateFormatter {

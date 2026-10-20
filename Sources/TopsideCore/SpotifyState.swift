@@ -17,8 +17,10 @@ public struct TrackInfo: Equatable, Sendable {
 public struct SpotifySnapshot: Equatable, Sendable {
     public var availability: SpotifyAvailability
     public var track: TrackInfo?
-    public init(_ availability: SpotifyAvailability, track: TrackInfo? = nil) {
-        self.availability = availability; self.track = track
+    /// nil when Spotify did not report a usable duration/position (ads, errors, older read format).
+    public var progress: PlaybackProgress?
+    public init(_ availability: SpotifyAvailability, track: TrackInfo? = nil, progress: PlaybackProgress? = nil) {
+        self.availability = availability; self.track = track; self.progress = progress
     }
 }
 
@@ -140,7 +142,7 @@ public enum SpotifyMapper {
 }
 
 /// Parses the unit-separator-delimited string produced by the read script in SpotifyBridge.
-/// Format: closed | stopped | <state>␟<id>␟<title>␟<artist>␟<artworkURL>
+/// Format: closed | stopped | <state>␟<id>␟<title>␟<artist>␟<artworkURL>[␟<durationMs>␟<positionSeconds>]
 public enum SpotifyParser {
     public static let separator = "\u{1F}"
 
@@ -155,10 +157,22 @@ public enum SpotifyParser {
             var url: URL?
             if f.count >= 5, let u = URL(string: f[4]), u.scheme == "https" { url = u }
             let track = TrackInfo(id: f[1], title: f[2], artist: f[3], artworkURL: url)
-            return SpotifySnapshot(state == "playing" ? .playing : .paused, track: track)
+            return SpotifySnapshot(state == "playing" ? .playing : .paused, track: track, progress: parseProgress(f))
         default:
             return SpotifySnapshot(.error)
         }
+    }
+}
+
+extension SpotifyParser {
+    /// Fields 5 and 6: track length in milliseconds and player position in whole seconds.
+    static func parseProgress(_ f: [String]) -> PlaybackProgress? {
+        guard f.count >= 7 else { return nil }
+        let trim = CharacterSet.whitespacesAndNewlines
+        guard let ms = Double(f[5].trimmingCharacters(in: trim)),
+              let pos = Double(f[6].trimmingCharacters(in: trim)),
+              ms > 0, pos >= 0 else { return nil }
+        return PlaybackProgress(duration: ms / 1000, position: pos)
     }
 }
 

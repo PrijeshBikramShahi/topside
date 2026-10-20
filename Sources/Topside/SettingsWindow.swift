@@ -18,6 +18,9 @@ struct SettingsView: View {
                     Slider(value: $prefs.topOffset, in: 0...12, step: 1)
                     Text("\(Int(prefs.topOffset)) pt").monospacedDigit().frame(width: 48, alignment: .trailing)
                 }
+                Toggle("Notch-style top corners", isOn: $prefs.notchCorners)
+                Text("Curves the top corners outward so the island blends into the screen edge. Applies when the vertical offset is 0.")
+                    .font(.footnote).foregroundStyle(.secondary)
                 if let ctx = ActiveDisplayProvider().currentContext() {
                     Text("Menu bar on this display: \(ctx.menuBarHeight == 0 ? "hidden (auto-hide)" : "\(Int(ctx.menuBarHeight)) pt")")
                         .font(.footnote).foregroundStyle(.secondary)
@@ -29,6 +32,26 @@ struct SettingsView: View {
                     Text("12-hour").tag(ClockStyle.twelveHour)
                     Text("24-hour").tag(ClockStyle.twentyFourHour)
                 }
+            }
+            Section("Appearance") {
+                Toggle("Tint with album artwork", isOn: $prefs.albumTint)
+                HStack {
+                    Text("Tint strength")
+                    Slider(value: $prefs.tintStrength, in: 0.25...1)
+                    Text("\(Int(prefs.tintStrength * 100))%").monospacedDigit().frame(width: 48, alignment: .trailing)
+                }
+                .disabled(!prefs.albumTint)
+                Text("The pinned player takes the album's colour. Other states get a faint hint of it. The collapsed island stays black.")
+                    .font(.footnote).foregroundStyle(.secondary)
+                Toggle("Film grain", isOn: $prefs.grain)
+                HStack {
+                    Text("Grain strength")
+                    Slider(value: $prefs.grainStrength, in: 0.1...1)
+                    Text("\(Int(prefs.grainStrength * 100))%").monospacedDigit().frame(width: 48, alignment: .trailing)
+                }
+                .disabled(!prefs.grain)
+                Text("Grain is off while the island is collapsed, and when macOS Reduce Transparency is on.")
+                    .font(.footnote).foregroundStyle(.secondary)
             }
             Section("Fullscreen") {
                 Toggle("Hide island when the frontmost app is fullscreen", isOn: $prefs.hideInFullscreen)

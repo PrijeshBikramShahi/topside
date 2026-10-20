@@ -48,7 +48,13 @@ enum SpotifyBridge {
                 try
                     set theArtworkUrl to (artwork url of theCurrentTrack) as text
                 end try
-                return theStateText & theSeparator & theTrackId & theSeparator & theTrackName & theSeparator & theTrackArtist & theSeparator & theArtworkUrl
+                set theDurationMillis to ""
+                set thePositionSeconds to ""
+                try
+                    set theDurationMillis to ((duration of theCurrentTrack) as integer) as text
+                    set thePositionSeconds to ((player position) as integer) as text
+                end try
+                return theStateText & theSeparator & theTrackId & theSeparator & theTrackName & theSeparator & theTrackArtist & theSeparator & theArtworkUrl & theSeparator & theDurationMillis & theSeparator & thePositionSeconds
             on error
                 return theStateText
             end try

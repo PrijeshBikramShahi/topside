@@ -52,3 +52,32 @@ final class BatteryMapperTests: XCTestCase {
         XCTAssertLessThan(BatteryLayout.width(showsPercent: false), BatteryLayout.width(showsPercent: true))
     }
 }
+
+final class BatteryHeadlineTests: XCTestCase {
+    private func snap(_ pct: Int?, ac: Bool?, charging: Bool? = nil, charged: Bool? = nil, lpm: Bool = false) -> PowerSnapshot {
+        PowerSnapshot(hasBattery: true, percent: pct, isOnACPower: ac, isCharging: charging, isCharged: charged, lowPowerMode: lpm)
+    }
+
+    func testHeadlineAndStatusSplitTheDetailLine() {
+        let d = BatteryMapper.map(snap(62, ac: false, charging: false))
+        XCTAssertEqual(d.headline, "62%")
+        XCTAssertEqual(d.statusLine, "On battery")
+    }
+
+    func testStatusLineKeepsLowPowerMode() {
+        let d = BatteryMapper.map(snap(62, ac: false, charging: false, lpm: true))
+        XCTAssertEqual(d.statusLine, "On battery · Low Power Mode")
+    }
+
+    func testChargingAndChargedStatusLines() {
+        XCTAssertEqual(BatteryMapper.map(snap(50, ac: true, charging: true)).statusLine, "Charging")
+        XCTAssertEqual(BatteryMapper.map(snap(100, ac: true, charging: false, charged: true)).statusLine, "Charged")
+        XCTAssertEqual(BatteryMapper.map(snap(80, ac: true, charging: false, charged: false)).statusLine, "Plugged in, not charging")
+    }
+
+    func testUnknownBatteryNeverInventsANumber() {
+        let d = BatteryMapper.map(.unknown)
+        XCTAssertEqual(d.headline, "—")
+        XCTAssertEqual(d.statusLine, "Battery status unavailable")
+    }
+}

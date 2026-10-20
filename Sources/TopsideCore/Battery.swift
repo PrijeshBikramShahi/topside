@@ -39,9 +39,21 @@ public struct BatteryDisplay: Equatable, Sendable {
     }
 }
 
+extension BatteryDisplay {
+    /// Big number for the pinned view ("62%"), or an em dash when the level is unknown.
+    public var headline: String { percent.map { "\($0)%" } ?? "—" }
+
+    /// `detail` without its leading percentage: "On battery", "Charging · Low Power Mode".
+    public var statusLine: String {
+        guard let percent else { return detail }
+        let prefix = "\(percent)% · "
+        return detail.hasPrefix(prefix) ? String(detail.dropFirst(prefix.count)) : detail
+    }
+}
+
 public enum BatteryLayout {
-    /// Glyph is 24pt wide; percent text adds 38pt.
-    public static func width(showsPercent: Bool) -> CGFloat { showsPercent ? 62 : 24 }
+    /// Glyph is 24pt wide; percent text adds 40pt (8pt gap plus the text).
+    public static func width(showsPercent: Bool) -> CGFloat { showsPercent ? 64 : 24 }
 }
 
 public enum BatteryMapper {

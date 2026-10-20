@@ -97,6 +97,7 @@ final class IslandHost {
     private var globalPointerMonitor: Any?
     private var visibleSize = CGSize.zero
     private var cornerRadius: CGFloat = 0
+    private var earWidth: CGFloat = 0
     private var frameAnimationTimer: Timer?
     private var frameAnimationGeneration = 0
 
@@ -158,11 +159,13 @@ final class IslandHost {
         let generation = frameAnimationGeneration
         let startFrame = panel.frame
         let startTime = ProcessInfo.processInfo.systemUptime
-        let duration: TimeInterval = 0.22
+        // Opening springs slightly past its target; closing is a plain ease-out.
+        let growing = frame.width * frame.height >= startFrame.width * startFrame.height
+        let duration = IslandMotion.duration(growing: growing)
         let timer = Timer(timeInterval: 1.0 / 60.0, repeats: true) { [weak self] _ in
             Task { @MainActor in
                 self?.advanceFrameAnimation(generation: generation, from: startFrame, to: frame,
-                                            startTime: startTime, duration: duration)
+                                            startTime: startTime, duration: duration, growing: growing)
             }
         }
         timer.tolerance = 1.0 / 240.0
@@ -171,11 +174,11 @@ final class IslandHost {
     }
 
     private func advanceFrameAnimation(generation: Int, from startFrame: CGRect, to targetFrame: CGRect,
-                                       startTime: TimeInterval, duration: TimeInterval) {
+                                       startTime: TimeInterval, duration: TimeInterval, growing: Bool) {
         guard frameAnimationGeneration == generation else { return }
         let elapsed = ProcessInfo.processInfo.systemUptime - startTime
         let progress = min(max(elapsed / duration, 0), 1)
-        let eased = 1 - pow(1 - progress, 3)
+        let eased = CGFloat(IslandMotion.eased(progress, growing: growing))
         let current = CGRect(
             x: startFrame.minX + (targetFrame.minX - startFrame.minX) * eased,
             y: startFrame.minY + (targetFrame.minY - startFrame.minY) * eased,
@@ -190,9 +193,10 @@ final class IslandHost {
         }
     }
 
-    func updateInteractiveShape(size: CGSize, cornerRadius: CGFloat) {
+    func updateInteractiveShape(size: CGSize, cornerRadius: CGFloat, earWidth: CGFloat = 0) {
         visibleSize = size
         self.cornerRadius = cornerRadius
+        self.earWidth = earWidth
         updateMousePassthrough(at: NSEvent.mouseLocation)
     }
 
@@ -208,7 +212,8 @@ final class IslandHost {
     }
 
     private func updateMousePassthrough(localPoint: CGPoint) {
-        let acceptsPoint = IslandLayout.containsVisibleShape(localPoint, size: visibleSize, cornerRadius: cornerRadius)
+        let acceptsPoint = IslandLayout.containsVisibleShape(localPoint, size: visibleSize, cornerRadius: cornerRadius,
+                                                         earWidth: earWidth)
         if panel.ignoresMouseEvents == acceptsPoint {
             panel.ignoresMouseEvents = !acceptsPoint
         }

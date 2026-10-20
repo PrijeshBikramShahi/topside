@@ -25,3 +25,8 @@ __MACOSX/
 .idea/
 *.swp
 *~
+build/
+.build/
+.swiftpm/
+.DS_Store
+*.patch

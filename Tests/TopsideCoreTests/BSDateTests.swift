@@ -49,3 +49,25 @@ final class BSDateTests: XCTestCase {
         XCTAssertTrue(text.combined.contains("BS:"))
     }
 }
+
+final class DualDateTextLinesTests: XCTestCase {
+    func testWeekdayAndDetailLine() {
+        let t = DualDateText(ad: "Tuesday, 20 October 2026", bs: "3 Kartik 2083 BS")
+        XCTAssertEqual(t.weekday, "Tuesday")
+        XCTAssertEqual(t.detailLine, "20 October 2026 · 3 Kartik 2083 BS")
+    }
+
+    func testFallsBackWhenThereIsNoWeekdayComma() {
+        let t = DualDateText(ad: "20 October 2026", bs: "3 Kartik 2083 BS")
+        XCTAssertEqual(t.weekday, "20 October 2026")
+        XCTAssertEqual(t.detailLine, "3 Kartik 2083 BS")
+    }
+
+    func testFormatterFeedsBothLines() {
+        var cal = Calendar(identifier: .gregorian); cal.timeZone = TimeZone(secondsFromGMT: 0)!
+        let date = cal.date(from: DateComponents(year: 2026, month: 10, day: 20, hour: 12))!
+        let t = DualDateFormatter.string(for: date, timeZone: TimeZone(secondsFromGMT: 0)!)
+        XCTAssertEqual(t.weekday, "Tuesday")
+        XCTAssertEqual(t.detailLine, "20 October 2026 · 3 Kartik 2083 BS")
+    }
+}
